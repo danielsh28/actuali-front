@@ -1,12 +1,13 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-interface NewsData {
+export interface NewsData {
     title:string,
-    imgUrl:string
+    imgUrl:string,
+    url:string
 }
 
-const NewsCard :React.FC<NewsData> = ({title,imgUrl})=>{
+ export const NewsCard :React.FC<NewsData> = ({title,imgUrl,url})=>{
     return <div>
         <Card>
             <Card.Img src={imgUrl}/>
@@ -14,9 +15,9 @@ const NewsCard :React.FC<NewsData> = ({title,imgUrl})=>{
                 {title}
             </Card.Title>
             <Card.Body>
-                'content body'
+                <a href={url}/>
             </Card.Body>
         </Card>
 
     </div>
-}
+};
