@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import Button from "react-bootstrap/Button";
 
 export interface NewsData {
     title:string,
@@ -8,18 +9,16 @@ export interface NewsData {
 }
 
  export const NewsCard :React.FC<NewsData> = ({title,urlToImage,url})=>{
-    return <div>
-        <Card>
+    return (
+        <Card  style={{width:'18rem'}} border={'primary'}>
             <Card.Img  variant={'top'} src={urlToImage}/>
             <Card.Title>
                 {title}
             </Card.Title>
             <Card.Body>
-                <a  href={url}>
+                <Button variant={'primary'}  href={url}>
                     {'מעבר לכתבה'}
-                </a>
+                </Button>
             </Card.Body>
-        </Card>
-
-    </div>
+        </Card>)
 };
