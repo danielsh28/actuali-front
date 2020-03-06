@@ -1,0 +1,9 @@
+
+.logoImage{
+    position:relative;
+    border: 2px solid black;
+    width: 50%;
+    top: 50%;
+    left: 25%;
+    margin:0;
+}

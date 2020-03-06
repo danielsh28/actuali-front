@@ -1,10 +1,12 @@
 import React from 'react';
-import CardList from './news-card/news-card-container';
+import CardList from './UI/organisms/news-card-container';
+import LandPageTamplate from './tamplets/LandingPage/LandingPage';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <CardList/>
+      {/*<CardList/>*/}
+      <LandPageTamplate/>
     </div>
   );
 };
