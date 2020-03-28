@@ -1,7 +1,21 @@
- .landingContainer {
-    border: 2px solid black;
-    height:100%;
-    background-image: url('https://ak3.picdn.net/shutterstock/videos/344983/thumb/1.jpg');
-    background-size: cover;
-    width:100%;
+ .backgroundImage {
+    background-image: url('https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png'),url('https://ak3.picdn.net/shutterstock/videos/344983/thumb/1.jpg');
+    background-position: 50% 10%, center;
+    background-size: auto,cover;
+    background-repeat: no-repeat,repeat; ;
+    background-attachment: fixed,fixed;
+    height: 400vh;
+    position: absolute;
+    width: 100%;
 }
+
+ .container{
+     margin-top: 40vh;
+ }
+
+ .logoImage{
+     width: 50%;
+     height: 5vh;
+     background-size: auto;
+     background-attachment: fixed;
+ }
