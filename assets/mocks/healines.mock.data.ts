@@ -1,4 +1,4 @@
-import {NewsData} from "../../components/UI/molecules/news-card";
+import {NewsData} from "../../src/components/UI/molecules/news-card";
 
 export const mockHeadlines: Array<NewsData> = [
     {

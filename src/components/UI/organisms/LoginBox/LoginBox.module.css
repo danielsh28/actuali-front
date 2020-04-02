@@ -1,5 +1,7 @@
 .loginBox{
     width: 50%;
-    margin-top: 70vh;
+    top: 50%;
     background-color: orange;
+    z-index:1;
+    position:relative;
 }

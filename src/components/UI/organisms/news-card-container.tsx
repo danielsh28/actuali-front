@@ -3,7 +3,7 @@ import {Container,Col,Row} from 'react-bootstrap';
 import axios from 'axios'
 import {NewsCard,NewsData} from '../molecules/news-card';
 import sideBarStyle from './ActualySideBar/side-bar-style';
-import {mockHeadlines} from '../../../assets/mocks/healines.mock.data'
+import {mockHeadlines} from '../../../../assets/mocks/healines.mock.data'
 
 const CardsList :React.FC  =  function (){
     const [newsDataList, setNewsList] = useState<Array<NewsData>>([]);

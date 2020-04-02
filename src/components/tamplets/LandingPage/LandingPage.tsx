@@ -1,5 +1,5 @@
 import React from 'react';
-import DynamicPharse from '../../UI/atoms/DynamicPhrase';
+import DynamicPharse from '../../UI/atoms/DynamicPharse/DynamicPhrase';
 import ActualyLogo from '../../UI/atoms/ActualyLogo/ActualyLogo';
 import styles from  './LandingPage.module.css';
 import Container from "react-bootstrap/Container";
@@ -13,10 +13,7 @@ const LandPageTemplate : React.FC =()=> {
     return <div  className={styles.backgroundImage}>
         <Container className={styles.container} fluid  >
         <Row  className={'justify-content-center'} >
-            <Col style={{position:'fixed',
-                top:'50%'}}xs={6}>
             <DynamicPharse/>
-            </Col>
         </Row>
         </Container>
         <LoginBox/>
