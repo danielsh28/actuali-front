@@ -1,7 +1,12 @@
 .loginBox{
     width: 50%;
     top: 50%;
-    background-color: orange;
     z-index:1;
     position:relative;
+    background-color: peru;
+
+}
+
+.form{
+
 }
