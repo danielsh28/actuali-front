@@ -6,20 +6,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import LoginBox from "../LoginBox/LoginBox";
 
-interface ILanding {
-    onLogin: Function
-}
 
 
-const LandPageTemplate : React.FC<ILanding> =({onLogin})=> {
+
+const LandPageTemplate : React.FC  = () => {
     return <div  className={styles.backgroundImage}>
         <Container className={styles.container} fluid  >
         <Row  className={'justify-content-center'} >
             <DynamicPharse/>
         </Row>
         </Container>
-        <LoginBox onLogin={onLogin}/>
+        <LoginBox/>
     </div>
 }
 
 export default LandPageTemplate;
+

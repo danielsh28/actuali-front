@@ -5,7 +5,7 @@ import {useState} from 'react';
 import {DEFAULT_SRC_IMG} from '../../../../utils/app-constants';
 import styles from './NewsCard.module.css';
 
-export interface NewsData {
+export interface INewsData {
     resourceName?:string
     title:string,
     urlToImage:string| null,
@@ -13,7 +13,7 @@ export interface NewsData {
     publishedAt?:string
 }
 
- export const NewsCard :React.FC<NewsData> = ({title,urlToImage,url})=>{
+ export const NewsCard :React.FC<INewsData> = ({title,urlToImage,url})=>{
     const [imgSrc,setImgeSrc] = useState<string|null>(urlToImage);
 
     useEffect(()=>{

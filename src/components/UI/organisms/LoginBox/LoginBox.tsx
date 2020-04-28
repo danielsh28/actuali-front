@@ -6,18 +6,21 @@ import Container from "react-bootstrap/Container";
 import styles from './LoginBox.module.css';
 import Button from "react-bootstrap/Button";
 import {Redirect} from 'react-router-dom'
+import {connect} from "react-redux";
+import {Dispatch} from 'redux';
+import {AppHeight,loginHeight} from "../../../../store/actions";
 
 interface ILoginBox {
-    onLogin: Function
+    changeHeight:Function
 }
 
-const LoginBox :React.FC<ILoginBox> =({onLogin})=>{
+const LoginBox :React.FC<ILoginBox> =({changeHeight})=>{
 
     const [isValid, setIsValid] = useState(false);
 
     const handleSubmit = (event :any)=>{
         event.preventDefault();
-        onLogin(true);
+        changeHeight('100vh');
         setIsValid(true);
     };
     return(
@@ -51,4 +54,7 @@ const LoginBox :React.FC<ILoginBox> =({onLogin})=>{
 
 };
 
-export  default  LoginBox;
+const mapStateToDispatch =  (dispatch: Dispatch)=> ({
+    changeHeight: (appHeight: AppHeight) => dispatch(loginHeight('100vh'))
+    });
+export  default  connect(null,mapStateToDispatch)(LoginBox);

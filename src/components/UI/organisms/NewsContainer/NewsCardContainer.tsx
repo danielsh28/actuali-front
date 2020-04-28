@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Container,Col,Row} from 'react-bootstrap';
 import axios from 'axios';
-import {NewsCard,NewsData} from '../../molecules/NewsCard/NewsCard';
+import {NewsCard,INewsData} from '../../molecules/NewsCard/NewsCard';
 import sideBarStyle from '../ActualySideBar/side-bar-style';
 import {mockHeadlines} from '../../../../assets/mocks/healines.mock.data';
 import  styles from './NewsCardContainer.module.css';
 
 const CardsList :React.FC  =  function (){
-    const [newsDataList, setNewsList] = useState<Array<NewsData>>([]);
+    const [newsDataList, setNewsList] = useState<Array<INewsData>>([]);
 
     async function getNews() {
         console.log(process.env.REACT_APP_DATA);
@@ -23,7 +23,7 @@ const CardsList :React.FC  =  function (){
             getNews().catch(err=>console.log(err));
         },[]);
 
-        const cardList  = newsDataList.map( (news:NewsData)=> {
+        const cardList  = newsDataList.map( (news:INewsData)=> {
             return <Col  key={news.url}>
                 <NewsCard urlToImage={news.urlToImage} title={news.title} url={news.url} key={news.url}/>
             </Col>});

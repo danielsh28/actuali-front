@@ -1,6 +1,6 @@
-import {NewsData} from "../../components/UI/molecules/NewsCard/NewsCard";
+import {INewsData} from "../../components/UI/molecules/NewsCard/NewsCard";
 
-export const mockHeadlines: Array<NewsData> = [
+export const mockHeadlines: Array<INewsData> = [
     {
         "resourceName": "Sport5.co.il",
         "title": "מה זה משנה: השחקנים ששינו את הכללים ב-NBA - ערוץ הספורט",

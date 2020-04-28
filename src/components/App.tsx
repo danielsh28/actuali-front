@@ -1,31 +1,37 @@
 import React, {useState,CSSProperties} from 'react';
-import CardList from './UI/organisms/NewsContainer/NewsCardContainer';
-import LandPageTemplate from './UI/organisms/LandingPage/LandingPage';
-import './App.css';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
 } from 'react-router-dom';
+import CardList from './UI/organisms/NewsContainer/NewsCardContainer';
+import LandPageTemplate from './UI/organisms/LandingPage/LandingPage';
+import './App.css';
+import {connect} from "react-redux";
+import  {RootState} from "../store/configureStore";
+import {AppHeight} from "../store/types";
 
-
-const App: React.FC = () => {
-    const [isLogin,setIsLogin] = useState(false);
-    const handleHeightChange = (isLogin:boolean) => {
-        setIsLogin(isLogin);
+interface IAppProps {
+    appHeight:AppHeight
+}
+const App: React.FC<IAppProps> = ({appHeight}) => {
+    const styles = {
+        main:{
+            height : appHeight,
+        }
     }
+    console.log(appHeight);
   return (
-      <Router>
-    <div className="App" style={ isLogin?{
-        height:'100vh'
-    }:{}}>
+    <div className="App" style={styles.main}>
         <Switch>
-        <Route  exact path={'/'} render= {()=> <LandPageTemplate onLogin={handleHeightChange} />}/>
+        <Route  exact path={'/'} render= {()=> <LandPageTemplate/>}/>
         <Route path={'/userDashboard'} render = { () => <CardList/>}/>
         </Switch>
     </div>
-      </Router>
   );
 };
 
-export default App;
+const mapStateToProps =  (state :RootState)=>{
+   return { appHeight:state.appHeightReducer.height};
+};
+
+export default connect(mapStateToProps)(App);
