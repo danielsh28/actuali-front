@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import {Redirect} from 'react-router-dom'
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
-import {AppHeight,loginHeight} from "../../../../store/actions";
+import {AppHeight,changeToLoginHeight} from "../../../../store/actions";
 
 interface ILoginBox {
     changeHeight:Function
@@ -55,6 +55,6 @@ const LoginBox :React.FC<ILoginBox> =({changeHeight})=>{
 };
 
 const mapStateToDispatch =  (dispatch: Dispatch)=> ({
-    changeHeight: (appHeight: AppHeight) => dispatch(loginHeight('100vh'))
+    changeHeight: (appHeight: AppHeight) => dispatch(changeToLoginHeight('100vh'))
     });
 export  default  connect(null,mapStateToDispatch)(LoginBox);

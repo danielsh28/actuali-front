@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Container,Col,Row} from 'react-bootstrap';
 import axios from 'axios';
-import {NewsCard,INewsData} from '../../molecules/NewsCard/NewsCard';
-import sideBarStyle from '../ActualySideBar/side-bar-style';
-import {mockHeadlines} from '../../../../assets/mocks/healines.mock.data';
-import  styles from './NewsCardContainer.module.css';
+import {NewsCard,INewsData} from '../../UI/molecules/NewsCard/NewsCard';
+import sideBarStyle from '../../UI/organisms/ActualySideBar/side-bar-style';
+import {mockHeadlines} from '../../../assets/mocks/healines.mock.data';
+import  styles from './ActualiWidgetTamplate.module.css';
 
-const CardsList :React.FC  =  function (){
+const ActualiWidgetTamplate :React.FC  =  function (){
     const [newsDataList, setNewsList] = useState<Array<INewsData>>([]);
 
     async function getNews() {
@@ -35,5 +35,5 @@ const CardsList :React.FC  =  function (){
     );
 };
 
-export default CardsList;
+export default ActualiWidgetTamplate;
 

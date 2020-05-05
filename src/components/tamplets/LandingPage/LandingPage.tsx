@@ -1,10 +1,10 @@
 import React from 'react';
-import DynamicPharse from '../../atoms/DynamicPharse/DynamicPhrase';
-import ActualyLogo from '../../atoms/ActualyLogo/ActualyLogo';
+import DynamicPharse from '../../UI/atoms/DynamicPharse/DynamicPhrase';
+import ActualyLogo from '../../UI/atoms/ActualyLogo/ActualyLogo';
 import styles from './LandingPage.module.css';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import LoginBox from "../LoginBox/LoginBox";
+import LoginBox from "../../UI/organisms/LoginBox/LoginBox";
 
 
 

@@ -1,8 +1,9 @@
 import {combineReducers, createStore} from 'redux';
-import {appHeightReducer} from './reducers';
+import {appHeightReducer,userStateReducer} from './reducers';
 
 export const rootReducer  = combineReducers({
-    appHeightReducer:appHeightReducer
+    appHeightReducer:appHeightReducer,
+    userStateReducer:userStateReducer
 })
 export default function configureStore (){
     return createStore(rootReducer);
