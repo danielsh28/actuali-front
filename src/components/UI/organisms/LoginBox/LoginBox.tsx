@@ -1,31 +1,31 @@
 import React, {useState} from 'react';
-import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
 import Container from "react-bootstrap/Container";
 import styles from './LoginBox.module.css';
 import Button from "react-bootstrap/Button";
 import {Redirect} from 'react-router-dom'
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
-import {AppHeight,changeToLoginHeight} from "../../../../store/actions";
+import {changeToLogin} from "../../../../store/actions";
+import {AppHeight} from "../../../../store/types";
+import {RootState} from "../../../../store/configureStore";
 
 interface ILoginBox {
-    changeHeight:Function
+    loginToDashboard:Function,
+    isLoginValid : boolean
+
 }
 
-const LoginBox :React.FC<ILoginBox> =({changeHeight})=>{
+const LoginBox :React.FC<ILoginBox> =({loginToDashboard,isLoginValid})=>{
 
-    const [isValid, setIsValid] = useState(false);
 
     const handleSubmit = (event :any)=>{
         event.preventDefault();
-        changeHeight('100vh');
-        setIsValid(true);
+        loginToDashboard(AppHeight,);
+
     };
     return(
-            isValid?
-                <Redirect to={'/userDashboard'}/> :
+              isLoginValid ?  <Redirect to={'/userDashboard'}/> :
                 <Container className={styles.loginBox}>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
@@ -54,7 +54,14 @@ const LoginBox :React.FC<ILoginBox> =({changeHeight})=>{
 
 };
 
+const mapStateToProps = (state:RootState)=>{
+    return {
+        isLoginValid : state.appHeightReducer.isLogin
+    }
+
+}
+
 const mapStateToDispatch =  (dispatch: Dispatch)=> ({
-    changeHeight: (appHeight: AppHeight) => dispatch(changeToLoginHeight('100vh'))
+    changeHeight: (appHeight: AppHeight) => dispatch(changeToLogin(AppHeight.DASHBOARD))
     });
-export  default  connect(null,mapStateToDispatch)(LoginBox);
+export  default  connect(mapStateToProps,mapStateToDispatch)(LoginBox);

@@ -1,10 +1,9 @@
-import {ICategoryData} from '../components/UI/molecules/NewsCard/CategoryCard'
-import {INewsData} from '../components/UI/molecules/NewsCard/NewsCard'
 
-type ActualiWidgetdata = ICategoryData | INewsData;
 /**
  * types for the app height state management
  */
+import {ActualiWidgetdata} from "../AppTypes";
+
 export enum AppHeight {
     DASHBOARD = '100vh',
     LANDING = '200vh'
@@ -13,71 +12,76 @@ export enum AppHeight {
 export const APP_HEIGHT_LOGIN = '[APP] HEIGHT LOGIN';
 export const APP_HEIGHT_LANDING = '[APP] HEIGHT LANDING';
 
-export interface IAppHeightLoginAction {
+export interface ILoginAction {
     type: typeof APP_HEIGHT_LOGIN;
+    payload:boolean;
 
 }
-export interface IAppHeightLandingAction {
+export interface ILogoutAction {
     type: typeof APP_HEIGHT_LANDING;
+    payload:boolean;
+
 }
 
-export type AppHeightActions = IAppHeightLandingAction | IAppHeightLoginAction;
+export type LogUserActions = ILogoutAction | ILoginAction;
 
-export interface IAppHeightState
+export interface ILogState
 {
-    height:AppHeight
+    height:AppHeight,
+    isLogin:boolean
 }
 
 /**
  * user status -new user or known user
  */
-export enum UserStatus {
-FIRST_LOGIN,
-    EXIST
+export enum LoggedUserStatus {
+FIRST_LOGIN='first-login',
+    EXIST = 'exist-user'
 }
 export const USER_STATUS_NEW = '[USER] STATUS NEW';
 export const USER_STATUS_EXIST = '[USER] STATUS EXIST';
 
- interface UserStatusNewAction {
+ export interface UserStatusNewAction {
     type : typeof USER_STATUS_NEW;
-    payload: UserStatus
+    payload: LoggedUserStatus
 }
-interface UserStatusExistAction {
+export interface UserStatusExistAction {
      type : typeof USER_STATUS_EXIST,
-     payload: UserStatus
+     payload: LoggedUserStatus
 
 }
-export type UserStatusActions = UserStatusExistAction | UserStatusNewAction ;
+export type LoggedUserStatusActions = UserStatusExistAction | UserStatusNewAction ;
 
 export interface IUserStatusState {
-    status: UserStatus;
+    status: LoggedUserStatus;
 }
 /**
  * types for the fetch data
  */
-const FETCH_DATA_REQUEST = '[FETCH] DATA REQUEST';
-const FETCH_DATA_SUCCESS = '[FETCH] DATA REQUEST';
-const FETCH_DATA_ERROR = '[FETCH] DATA REQUEST';
+export const FETCH_DATA_REQUEST = '[FETCH] DATA REQUEST';
+export const FETCH_DATA_SUCCESS = '[FETCH] DATA REQUEST';
+export const FETCH_DATA_ERROR = '[FETCH] DATA REQUEST';
 
-interface IFetchRequestAction {
+export interface IFetchRequestAction {
     type:typeof  FETCH_DATA_REQUEST,
+    payload:undefined
 }
 
-interface  IFetchSuccessAction {
+export interface  IFetchSuccessAction {
     type: typeof FETCH_DATA_SUCCESS,
-    payload: ActualiWidgetdata
+    payload: Array<ActualiWidgetdata>
 
 }
 //contains the error message
-interface  IFetchErrorAction {
+export interface  IFetchErrorAction {
     type: typeof FETCH_DATA_ERROR,
     payload: string
 
 }
 export type FetchActionsTypes =  IFetchErrorAction | IFetchRequestAction | IFetchSuccessAction;
 
-interface  IFetchState {
+export interface  IFetchState {
     loading: boolean,
-    data : ActualiWidgetdata,
+    data : Array<ActualiWidgetdata>,
     error : string
 }
