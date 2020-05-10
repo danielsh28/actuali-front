@@ -1,0 +1,7 @@
+.phrase{
+    position:fixed;
+    top:50%;
+    z-index: 0;
+    font-size:50px;
+    font-family:Arial;
+}
