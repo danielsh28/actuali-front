@@ -43,24 +43,27 @@ export const USER_STATUS_EXIST = '[USER] STATUS EXIST';
 
  export interface UserStatusNewAction {
     type : typeof USER_STATUS_NEW;
-    payload: LoggedUserStatus
+    payload:  { loggedUserStatus: LoggedUserStatus, mapDataFunc: Function}
 }
 export interface UserStatusExistAction {
      type : typeof USER_STATUS_EXIST,
-     payload: LoggedUserStatus
-
+    payload: {
+        loggedUserStatus: LoggedUserStatus,
+        mapDataFunc: Function
+    }
 }
 export type LoggedUserStatusActions = UserStatusExistAction | UserStatusNewAction ;
 
 export interface IUserStatusState {
-    status: LoggedUserStatus;
+    status: LoggedUserStatus,
+    mapFunc: Function
 }
 /**
  * types for the fetch data
  */
 export const FETCH_DATA_REQUEST = '[FETCH] DATA REQUEST';
-export const FETCH_DATA_SUCCESS = '[FETCH] DATA REQUEST';
-export const FETCH_DATA_ERROR = '[FETCH] DATA REQUEST';
+export const FETCH_DATA_SUCCESS = '[FETCH] DATA SUCCESS ';
+export const FETCH_DATA_ERROR = '[FETCH] DATA ERROR';
 
 export interface IFetchRequestAction {
     type:typeof  FETCH_DATA_REQUEST,

@@ -1,27 +1,39 @@
 import React, {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
-import styles from './LoginBox.module.css';
 import Button from "react-bootstrap/Button";
 import {Redirect} from 'react-router-dom'
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
-import {changeToLogin} from "../../../../store/actions";
+import {changeToLogin, changeUserStatusToNew} from "../../../../store/actions";
 import {AppHeight} from "../../../../store/types";
 import {RootState} from "../../../../store/configureStore";
+import CategoryCard from '../../molecules/NewsCard/CategoryCard';
+import styles from './LoginBox.module.css';
+import {Col} from "react-bootstrap";
+
 
 interface ILoginBox {
-    loginToDashboard:Function,
-    isLoginValid : boolean
+    loginUser:Function,
+    isLoginValid : boolean,
+    logUserAsNew :Function
+
 
 }
 
-const LoginBox :React.FC<ILoginBox> =({loginToDashboard,isLoginValid})=>{
+const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew})=>{
 
 
     const handleSubmit = (event :any)=>{
         event.preventDefault();
-        loginToDashboard(AppHeight,);
+        loginUser(AppHeight.DASHBOARD);
+        //todo this is were distinguis betwee neew and exist user will be performed
+        logUserAsNew( (category:any)=> {
+            return (
+                <Col key={category.url}>
+                    <CategoryCard imageUrl={category.urlToImage} categoryName={category.category}/>
+                </Col>);
+        })
 
     };
     return(
@@ -56,12 +68,13 @@ const LoginBox :React.FC<ILoginBox> =({loginToDashboard,isLoginValid})=>{
 
 const mapStateToProps = (state:RootState)=>{
     return {
-        isLoginValid : state.appHeightReducer.isLogin
+        isLoginValid : state.appHeighState.isLogin
     }
 
 }
 
 const mapStateToDispatch =  (dispatch: Dispatch)=> ({
-    changeHeight: (appHeight: AppHeight) => dispatch(changeToLogin(AppHeight.DASHBOARD))
-    });
+    loginUser: (appHeight: AppHeight) => dispatch(changeToLogin(AppHeight.DASHBOARD)),
+    logUserAsNew: (mapFunc :Function) => dispatch(changeUserStatusToNew(mapFunc))
+});
 export  default  connect(mapStateToProps,mapStateToDispatch)(LoginBox);

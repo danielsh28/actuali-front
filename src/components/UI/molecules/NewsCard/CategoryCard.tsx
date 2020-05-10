@@ -5,13 +5,12 @@ import styles from  './CategoryCard.module.css'
 
 
 export interface ICategoryData {
-    category: string;
+    categoryName: string;
     imageUrl: string
 
 }
 
-const CategoryCard : React.FC<ICategoryData>  = ({category,imageUrl}) => {
-
+const CategoryCard : React.FC<ICategoryData>  = ({categoryName,imageUrl}) => {
     return(
     <Card className ={styles.categoryHover} onMouseEnter = {()=>{}} onMouseLeave = {()=>{}}>
     <Card.Img src={imageUrl}/>
@@ -21,3 +20,5 @@ const CategoryCard : React.FC<ICategoryData>  = ({category,imageUrl}) => {
     )
 
 }
+
+export default  CategoryCard;

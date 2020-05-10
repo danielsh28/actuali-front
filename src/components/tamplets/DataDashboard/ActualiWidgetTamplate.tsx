@@ -1,32 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {Container,Col,Row} from 'react-bootstrap';
-import axios from 'axios';
-import {NewsCard,INewsData} from '../../UI/molecules/NewsCard/NewsCard';
-import sideBarStyle from '../../UI/organisms/ActualySideBar/side-bar-style';
-import {mockHeadlines} from '../../../assets/mocks/healines.mock.data';
+import {Container,Row} from 'react-bootstrap';
+import {connect, useDispatch, useSelector} from "react-redux";
+import {ThunkDispatch} from 'redux-thunk';
+import {AnyAction} from 'redux';
+import {fetchData} from "../../../store/actions";
+import {RootState} from "../../../store/configureStore";
 import  styles from './ActualiWidgetTamplate.module.css';
+import {LoggedUserStatus} from "../../../store/types";
+import {ActualiWidgetdata} from "../../../AppTypes";
 
-const ActualiWidgetTamplate :React.FC  =  function (){
-    const [newsDataList, setNewsList] = useState<Array<INewsData>>([]);
+/*interface IWidgetTemplate {
+    getWidgets:Function,
+    mapFunction :Function,
+    widgetsData :Array<ActualiWidgetdata>
+}*/
 
-    async function getNews() {
-        console.log(process.env.REACT_APP_DATA);
-        if (process.env.REACT_APP_DATA === 'mock') {
-            setNewsList(mockHeadlines);
-        } else {
-            await axios.get('http://localhost:3001/web-api?resource=').then((res) => {
-                setNewsList(res.data);
-            });
-        }
-    }
-        useEffect(()=>{
-            getNews().catch(err=>console.log(err));
+const ActualiWidgetTamplate :React.FC  =  function ({}){
+    const  dispatch = useDispatch();
+    useEffect( ()=>{
+        //if(userStatus===LoggedUserStatus.EXIST)
+        dispatch(fetchData('/web-api/choose-category'));
         },[]);
 
-        const cardList  = newsDataList.map( (news:INewsData)=> {
-            return <Col  key={news.url}>
-                <NewsCard urlToImage={news.urlToImage} title={news.title} url={news.url} key={news.url}/>
-            </Col>});
+    const mapFunc = useSelector(function (state :RootState ){return state.userState.mapFunc});
+    const widgetsData = useSelector(((state:RootState) => state.fetchDataState.data));
+    // @ts-ignore
+    const cardList  = widgetsData.map(mapFunc);
     return (<Container className={styles.newsContainer}>
             <Row className={'flex-row'}>
                     {cardList}
@@ -35,5 +34,16 @@ const ActualiWidgetTamplate :React.FC  =  function (){
     );
 };
 
-export default ActualiWidgetTamplate;
+/*
+const mapDispatchToProps =  (dispatch: ThunkDispatch<RootState,{},AnyAction>)=> ({
+    getWidgets : (query:string)=> dispatch(fetchData(query)),
+
+});
+const mapStateToProps = (state:RootState) =>({
+    mapFunction : state.userState.mapFunc,
+    widgetsData : state.fetchDataState.data
+
+})*/
+export  default ActualiWidgetTamplate;
+
 

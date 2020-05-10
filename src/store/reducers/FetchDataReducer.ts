@@ -1,14 +1,16 @@
 import {
-
     FetchActionsTypes,
     IFetchState,
     FETCH_DATA_ERROR,
     FETCH_DATA_SUCCESS,
     FETCH_DATA_REQUEST,
-    IFetchSuccessAction, IFetchErrorAction
+    IFetchSuccessAction,
+    IFetchErrorAction
 } from "../types";
 
-export const fetchDataReducer = (state:IFetchState = {loading:false,data:[],error:''},action :FetchActionsTypes)=>{
+import {AnyAction} from 'redux'
+
+export const fetchDataReducer = (state:IFetchState = {loading:false,data:[],error:''},action :AnyAction)=>{
 switch (action.type) {
     case FETCH_DATA_REQUEST:
         state={
@@ -19,14 +21,15 @@ switch (action.type) {
     case FETCH_DATA_SUCCESS :
         state = {
             ...state,
-            data:(action as IFetchSuccessAction) .payload
+            data:action.payload.data
         }
         break;
     case FETCH_DATA_ERROR:
         state = {
             ...state,
-            error: (action as IFetchErrorAction).payload
+            error:action.payload.data
         }
     }
+    return state;
 }
 

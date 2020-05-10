@@ -3,7 +3,7 @@ import {
     Switch,
     Route,
 } from 'react-router-dom';
-import CardList from './tamplets/DataDashboard/ActualiWidgetTamplate';
+import ActualiWidgetTamplate from './tamplets/DataDashboard/ActualiWidgetTamplate';
 import LandPageTemplate from './tamplets/LandingPage/LandingPage';
 import './App.css';
 import {connect} from "react-redux";
@@ -23,7 +23,7 @@ const App: React.FC<IAppProps> = ({appHeight,userStatus}) => {
     <div className="App" style={styles.main}>
         <Switch>
         <Route  exact path={'/'} render= {()=> <LandPageTemplate/>}/>
-        <Route path={`/user-dashboard/${userStatus}`} render = { () => <CardList/>}/>
+        <Route path={`/userDashboard`} render = { () => <ActualiWidgetTamplate/>}/>
         </Switch>
     </div>
   );
@@ -31,7 +31,7 @@ const App: React.FC<IAppProps> = ({appHeight,userStatus}) => {
 
 const mapStateToProps =  (state :RootState)=>{
    return {
-       appHeight:state.appHeightReducer.height};
+       appHeight:state.appHeighState.height};
 };
 
 export default connect(mapStateToProps)(App);
