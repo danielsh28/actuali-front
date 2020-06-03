@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 
 
 export const rootReducer  = combineReducers({
-    appHeighState:appHeightReducer,
+    userLoginStatus:appHeightReducer,
     userState:userStateReducer,
     fetchDataState:fetchDataReducer
 })

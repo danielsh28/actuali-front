@@ -1,4 +1,4 @@
-import {INewsData} from "../../components/UI/molecules/NewsCard/NewsCard";
+import {INewsData} from "../../components/UI/molecules/ActualiCards/NewsCard";
 
 export const mockHeadlines: Array<INewsData> = [
     {

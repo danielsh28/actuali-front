@@ -5,18 +5,20 @@ import Button from "react-bootstrap/Button";
 import {Redirect} from 'react-router-dom'
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
-import {changeToLogin, changeUserStatusToNew} from "../../../../store/actions";
+import {changeUserStatusToNew} from "../../../../store/actions/UserStatusActions";
 import {AppHeight} from "../../../../store/types";
 import {RootState} from "../../../../store/configureStore";
-import CategoryCard from '../../molecules/NewsCard/CategoryCard';
+import CategoryCard, {ICategoryData} from '../../molecules/ActualiCards/CategoryCard';
 import styles from './LoginBox.module.css';
 import {Col} from "react-bootstrap";
+import {CardMapFunction} from "../../../../AppTypes";
+import { changeToLogin } from '../../../../store/actions/LoginStatusActions';
 
 
 interface ILoginBox {
     loginUser:Function,
     isLoginValid : boolean,
-    logUserAsNew :Function
+    logUserAsNew :CardMapFunction
 
 
 }
@@ -27,13 +29,14 @@ const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew})=>{
     const handleSubmit = (event :any)=>{
         event.preventDefault();
         loginUser(AppHeight.DASHBOARD);
-        //todo this is were distinguis betwee neew and exist user will be performed
-        logUserAsNew( (category:any)=> {
+        //todo this is were distinguis betwee n,ew and exist user will be performed
+        logUserAsNew((category:ICategoryData,index :number) => {
             return (
-                <Col key={category.url}>
-                    <CategoryCard imageUrl={category.urlToImage} categoryName={category.category}/>
-                </Col>);
-        })
+                <Col  key={index} xs ={4}>
+                    <CategoryCard  urlToImage={category.urlToImage} catName={category.catName}/>
+                </Col>
+            );
+        });
 
     };
     return(
@@ -68,13 +71,13 @@ const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew})=>{
 
 const mapStateToProps = (state:RootState)=>{
     return {
-        isLoginValid : state.appHeighState.isLogin
+        isLoginValid : state.userLoginStatus.isLogin
     }
 
 }
 
 const mapStateToDispatch =  (dispatch: Dispatch)=> ({
     loginUser: (appHeight: AppHeight) => dispatch(changeToLogin(AppHeight.DASHBOARD)),
-    logUserAsNew: (mapFunc :Function) => dispatch(changeUserStatusToNew(mapFunc))
+    logUserAsNew: (mapFunc :CardMapFunction) => dispatch(changeUserStatusToNew(mapFunc))
 });
 export  default  connect(mapStateToProps,mapStateToDispatch)(LoginBox);

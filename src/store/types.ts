@@ -2,23 +2,25 @@
 /**
  * types for the app height state management
  */
-import {ActualiWidgetdata} from "../AppTypes";
+
+import {ActualiWidgetdata, CardMapFunction, UsersChoicesMap} from "../AppTypes";
+import {UserInfo} from "os";
 
 export enum AppHeight {
     DASHBOARD = '100vh',
     LANDING = '200vh'
 }
 
-export const APP_HEIGHT_LOGIN = '[APP] HEIGHT LOGIN';
-export const APP_HEIGHT_LANDING = '[APP] HEIGHT LANDING';
+export const USER_LOGGED = '[USER] LOGGED';
+export const USER_NOT_LOGGED = '[USER] NOT LOGGED';
 
 export interface ILoginAction {
-    type: typeof APP_HEIGHT_LOGIN;
+    type: typeof USER_LOGGED;
     payload:boolean;
 
 }
 export interface ILogoutAction {
-    type: typeof APP_HEIGHT_LANDING;
+    type: typeof USER_NOT_LOGGED;
     payload:boolean;
 
 }
@@ -40,23 +42,30 @@ FIRST_LOGIN='first-login',
 }
 export const USER_STATUS_NEW = '[USER] STATUS NEW';
 export const USER_STATUS_EXIST = '[USER] STATUS EXIST';
+export const USER_ADD_TO_CHOICES = '[USER] ADD TO CHOICES';
 
  export interface UserStatusNewAction {
     type : typeof USER_STATUS_NEW;
-    payload:  { loggedUserStatus: LoggedUserStatus, mapDataFunc: Function}
+    payload:  { loggedUserStatus: LoggedUserStatus, mapDataFunc: CardMapFunction}
 }
 export interface UserStatusExistAction {
-     type : typeof USER_STATUS_EXIST,
+    type : typeof USER_STATUS_EXIST,
     payload: {
         loggedUserStatus: LoggedUserStatus,
-        mapDataFunc: Function
+        mapDataFunc:CardMapFunction
     }
 }
-export type LoggedUserStatusActions = UserStatusExistAction | UserStatusNewAction ;
+export  interface addUserChoiceAction {
+    type: typeof  USER_ADD_TO_CHOICES,
+    payload:string
+
+}
+export type LoggedUserStatusActions = UserStatusExistAction | UserStatusNewAction |  addUserChoiceAction;
 
 export interface IUserStatusState {
     status: LoggedUserStatus,
-    mapFunc: Function
+    mapFunc: CardMapFunction,
+    categories: UsersChoicesMap
 }
 /**
  * types for the fetch data
