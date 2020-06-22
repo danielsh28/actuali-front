@@ -1,14 +1,14 @@
 import {
     IUserStatusState,
-    USER_STATUS_EXIST,
-    USER_STATUS_NEW,
     LoggedUserStatus,
     LoggedUserStatusActions,
-    USER_ADD_TO_CHOICES
+    USER_STATUS_EXIST,
+    USER_STATUS_NEW,
+    USER_TOGGLE_CHOICES
 } from '../types';
 
 const  initialState  : IUserStatusState = {
-    status:LoggedUserStatus.FIRST_LOGIN,
+    status: LoggedUserStatus.NOT_INITIALIZED,
     mapFunc:()=>{},
     categories:[]
 };
@@ -33,10 +33,11 @@ export const userStateReducer = (state :IUserStatusState = initialState, action 
             break;
         }
 
-        case USER_ADD_TO_CHOICES: {
+        case USER_TOGGLE_CHOICES: {
             state={
                 ...state,
-                categories: [...state.categories,action.payload]
+                categories:state.categories.indexOf(action.payload) ===-1? [...state.categories,action.payload]:
+                    state.categories.filter(cat => cat !== action.payload)
             }
             console.log(state.categories);
         }

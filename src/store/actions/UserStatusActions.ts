@@ -1,5 +1,5 @@
 import {CardMapFunction} from "../../AppTypes";
-import {LoggedUserStatus, USER_ADD_TO_CHOICES, USER_STATUS_EXIST, USER_STATUS_NEW} from "../types";
+import {LoggedUserStatus, USER_TOGGLE_CHOICES, USER_STATUS_EXIST, USER_STATUS_NEW} from "../types";
 
 export const changeUserStatusToNew = (mapFunc :CardMapFunction)=>{
     return {
@@ -21,9 +21,9 @@ export const changeUserStatusToExist = (mapFunc :CardMapFunction)=>{
     }
 }
 
-export const addToUserChoices = (userChoice:string) =>{
+export const toggleUserChoice = (userChoice:string) =>{
     return{
-        type:USER_ADD_TO_CHOICES,
+        type:USER_TOGGLE_CHOICES,
         payload: userChoice
     }
 }

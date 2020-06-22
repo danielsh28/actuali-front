@@ -1,11 +1,8 @@
 import {
-    FetchActionsTypes,
     IFetchState,
     FETCH_DATA_ERROR,
     FETCH_DATA_SUCCESS,
     FETCH_DATA_REQUEST,
-    IFetchSuccessAction,
-    IFetchErrorAction
 } from "../types";
 
 import {AnyAction} from 'redux'

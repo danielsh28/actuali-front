@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -6,41 +6,39 @@ import {Redirect} from 'react-router-dom'
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
 import {changeUserStatusToNew} from "../../../../store/actions/UserStatusActions";
-import {AppHeight} from "../../../../store/types";
+import {AppHeight, LoggedUserStatus} from "../../../../store/types";
 import {RootState} from "../../../../store/configureStore";
 import CategoryCard, {ICategoryData} from '../../molecules/ActualiCards/CategoryCard';
-import styles from './LoginBox.module.css';
+import styles from './LoginBox.module.scss';
 import {Col} from "react-bootstrap";
 import {CardMapFunction} from "../../../../AppTypes";
-import { changeToLogin } from '../../../../store/actions/LoginStatusActions';
-
+import {changeToLogin} from '../../../../store/actions/LoginStatusActions';
 
 interface ILoginBox {
     loginUser:Function,
     isLoginValid : boolean,
-    logUserAsNew :CardMapFunction
+    logUserAsNew :CardMapFunction,
+    userStatus : LoggedUserStatus
 
 
 }
 
-const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew})=>{
+const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew,userStatus})=>{
 
 
     const handleSubmit = (event :any)=>{
         event.preventDefault();
         loginUser(AppHeight.DASHBOARD);
-        //todo this is were distinguis betwee n,ew and exist user will be performed
+        //todo this is were distinguish between,ew and exist user will be performed
         logUserAsNew((category:ICategoryData,index :number) => {
             return (
-                <Col  key={index} xs ={4}>
                     <CategoryCard  urlToImage={category.urlToImage} catName={category.catName}/>
-                </Col>
             );
         });
 
     };
     return(
-              isLoginValid ?  <Redirect to={'/userDashboard'}/> :
+              isLoginValid  ?  <Redirect to={`/${ userStatus ===LoggedUserStatus.EXIST ?'userDashboard' : 'choose-news'}`}/> :
                 <Container className={styles.loginBox}>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
@@ -71,7 +69,8 @@ const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew})=>{
 
 const mapStateToProps = (state:RootState)=>{
     return {
-        isLoginValid : state.userLoginStatus.isLogin
+        isLoginValid : state.userLoginStatus.isLogin,
+        userStatus: state.userState.status
     }
 
 }

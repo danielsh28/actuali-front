@@ -1,36 +1,27 @@
-import React, {useState,CSSProperties} from 'react';
-import {
-    Switch,
-    Route,
-} from 'react-router-dom';
-import Container from 'react-bootstrap/Container'
+import React from 'react';
+import {Route, Switch,} from 'react-router-dom';
 import ActualiWidgetTamplate from './components/tamplets/DataDashboard/ActualiWidgetTamplate';
 import LandPageTemplate from './components/tamplets/LandingPage/LandingPage';
-import './App.css';
 import {connect} from "react-redux";
-import  {RootState} from "../src/store/configureStore";
-import {AppHeight,LoggedUserStatus} from "../src/store/types";
-import {IAppProps} from "../src/AppTypes";
-import {Row} from "react-bootstrap";
+import {RootState} from "./store/configureStore";
+import {LoggedUserStatus} from "./store/types";
+import {IAppProps} from "./AppTypes";
+import styles from './App.module.scss';
 
 
 const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
-    const styles = {
+    const mainStyles = {
         main:{
             height : appHeight,
         }
     }
-    console.log(appHeight);
+    console.log(`user status :${userStatus}`);
+    console.log(`${userStatus !== LoggedUserStatus.NOT_INITIALIZED}`);
   return (
-    <div className="App" style={styles.main}>
-        {isUserLogged &&
-        <Container >
-            <Row>Actuali</Row>
-            <Row>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך</Row>
-        </Container>}
+    <div className= {styles.App} style={mainStyles.main}>
         <Switch>
         <Route  exact path={'/'} render= {()=> <LandPageTemplate/>}/>
-        <Route path={`/userDashboard`} render = { () => <ActualiWidgetTamplate/>}/>
+        <Route path={`/${userStatus === LoggedUserStatus.EXIST ? 'userDashboard' : 'choose-news'}`} render = { () => <ActualiWidgetTamplate/>}/>
         </Switch>
     </div>
   );
@@ -39,7 +30,8 @@ const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
 const mapStateToProps =  (state :RootState)=>{
    return {
        appHeight: state.userLoginStatus.height,
-       isUserLogged: state.userLoginStatus.isLogin
+       isUserLogged: state.userLoginStatus.isLogin,
+       userStatus : state.userState.status
    }
 };
 

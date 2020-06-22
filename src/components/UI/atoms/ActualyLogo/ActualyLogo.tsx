@@ -1,5 +1,5 @@
 import React from  'react';
-import styles from './ActualyLogo.module.css'
+import styles from './ActualyLogo.module.scss'
 
 
 

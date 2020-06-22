@@ -38,11 +38,12 @@ export interface ILogState
  */
 export enum LoggedUserStatus {
 FIRST_LOGIN='first-login',
-    EXIST = 'exist-user'
+    EXIST = 'exist-user',
+    NOT_INITIALIZED = 'not-initialized'
 }
 export const USER_STATUS_NEW = '[USER] STATUS NEW';
 export const USER_STATUS_EXIST = '[USER] STATUS EXIST';
-export const USER_ADD_TO_CHOICES = '[USER] ADD TO CHOICES';
+export const USER_TOGGLE_CHOICES = '[USER] TOGGLE CHOICES';
 
  export interface UserStatusNewAction {
     type : typeof USER_STATUS_NEW;
@@ -56,7 +57,7 @@ export interface UserStatusExistAction {
     }
 }
 export  interface addUserChoiceAction {
-    type: typeof  USER_ADD_TO_CHOICES,
+    type: typeof  USER_TOGGLE_CHOICES,
     payload:string
 
 }

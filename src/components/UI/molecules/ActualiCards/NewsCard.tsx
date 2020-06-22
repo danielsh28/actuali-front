@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import {useState} from 'react';
 import {DEFAULT_SRC_IMG} from '../../../../utils/app-constants';
-import styles from './NewsCard.module.css';
+import styles from './NewsCard.module.scss';
 
 export interface INewsData {
     resourceName?:string

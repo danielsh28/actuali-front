@@ -1,5 +1,11 @@
 .newsContainer{
+    position: absolute;
     height: auto;
-    width: auto;
+    left: 15vw;
+    width: 70vw;
     border: 1px solid #00314c;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content :space-between;
 }
