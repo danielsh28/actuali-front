@@ -8,6 +8,7 @@ import {RootState} from "../../../store/configureStore";
 import  styles from './ActualiWidgetTamplate.module.css';
 import {ActualiWidgetdata} from "../../../AppTypes";
 import {LoggedUserStatus} from "../../../store/types";
+import ActuliHeader from '../../UI/organisms/Header/ActualiHeader';
 
 interface IWidgetTemplate {
     getWidgets:Function,
@@ -19,6 +20,7 @@ interface IWidgetTemplate {
 
 const ActualiWidgetTamplate :React.FC<IWidgetTemplate> =  function ({userStatus,getWidgets,mapFunction,widgetsData,isLogin}) {
        useEffect( ()=>{
+           window.scrollTo(0, 0)
            if(userStatus === LoggedUserStatus.FIRST_LOGIN) {
                getWidgets('/web-api/choose-category');
            }
@@ -36,6 +38,7 @@ const ActualiWidgetTamplate :React.FC<IWidgetTemplate> =  function ({userStatus,
                        userStatus !== LoggedUserStatus.NOT_INITIALIZED  && (
                            userStatus === LoggedUserStatus.FIRST_LOGIN ?
                                <div>
+                                   <ActuliHeader/>
                                    <h1>Actuali</h1>
                                    <h1>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך</h1>
                                </div> : <div> Welcome back  User!</div>)
