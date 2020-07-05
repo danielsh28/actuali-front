@@ -1,10 +1,10 @@
 .newsContainer{
     position: absolute;
     height: auto;
-    left: 15vw;
+    left:15vw ;
     width: 70vw;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-content :space-between;
+    justify-content: space-evenly;
+    align-content: space-between;
 }

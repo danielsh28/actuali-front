@@ -39,7 +39,6 @@ export const userStateReducer = (state :IUserStatusState = initialState, action 
                 categories:state.categories.indexOf(action.payload) ===-1? [...state.categories,action.payload]:
                     state.categories.filter(cat => cat !== action.payload)
             }
-            console.log(state.categories);
         }
     }
 
