@@ -1,12 +1,13 @@
 import React from 'react';
 import {Route, Switch,} from 'react-router-dom';
-import ActualiWidgetTamplate from './components/tamplets/DataDashboard/ActualiWidgetTamplate';
+import ActualiWidgetTamplate from './components/UI/organisms/WidgetTemplate/ActualiWidgetTamplate';
 import LandPageTemplate from './components/tamplets/LandingPage/LandingPage';
 import {connect} from "react-redux";
 import {RootState} from "./store/configureStore";
 import {LoggedUserStatus} from "./store/types";
 import {IAppProps} from "./AppTypes";
 import styles from './App.module.scss';
+import NewsDashboard from "./components/tamplets/NewsDashboard/NewsDashbord";
 
 
 const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
@@ -21,7 +22,7 @@ const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
     <div className= {styles.App} style={mainStyles.main}>
         <Switch>
         <Route  exact path={'/'} render= {()=> <LandPageTemplate/>}/>
-        <Route path={`/${userStatus === LoggedUserStatus.EXIST ? 'userDashboard' : 'choose-news'}`} render = { () => <ActualiWidgetTamplate/>}/>
+        <Route path={`/${userStatus === LoggedUserStatus.EXIST ? 'userDashboard' : 'choose-news'}`} render = { () => <NewsDashboard/>}/>
         </Switch>
     </div>
   );

@@ -1,0 +1,30 @@
+.main{
+  position: relative;
+  display:flex;
+  background-color: aliceblue;
+  height: 3rem;
+  justify-content: space-between;
+
+}
+
+.logo{
+  width: 7vw;
+}
+
+.searchBar {
+  background: transparent;
+  border : 0;
+  border-bottom: 2px solid black;
+  width: 30vw;
+  height: 80%;
+  left: 40vw;
+  &:focus{
+    outline: none;
+  }
+}
+.profilePic{
+  width: 3rem;
+  margin-right: 2vw;
+  height: auto;
+  border-radius: 40%;
+}
