@@ -32,7 +32,7 @@ const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew,userS
         //todo this is were distinguish between,ew and exist user will be performed
         logUserAsNew((category:ICategoryData,index :number) => {
             return (
-                    <CategoryCard  urlToImage={category.urlToImage} catName={category.catName}/>
+                    <CategoryCard  key={index} urlToImage={category.urlToImage} catName={category.catName}/>
             );
         });
 

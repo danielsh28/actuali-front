@@ -15,7 +15,8 @@ interface IDashboard {
     getWidgets : Function;
     categoryNum :number
 }
-const NewsDashboard  :React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,getWidgets})=>{
+
+const NewsDashboard:React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,getWidgets})=>{
 
     useEffect( ()=>{
         window.scrollTo(0, 0)
@@ -26,7 +27,7 @@ const NewsDashboard  :React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,g
             getWidgets('/web-api/user-dashboard');
 
         }
-    },[isLogin]);
+    },[getWidgets, isLogin, userStatus]);
 
     return ( <div>
         {userStatus === LoggedUserStatus.EXIST &&
