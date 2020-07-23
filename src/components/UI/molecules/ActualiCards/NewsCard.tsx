@@ -14,16 +14,9 @@ export interface INewsData {
 }
 
  export const NewsCard :React.FC<INewsData> = ({title,urlToImage,url})=>{
-    const [imgSrc,setImgeSrc] = useState<string|null>(urlToImage);
-
-    useEffect(()=>{
-        if(imgSrc== null){
-            setImgeSrc(DEFAULT_SRC_IMG);
-        }
-    },[]);
     return (
         <Card className={styles.newsCard} >
-            <Card.Img   variant={'top'} src={imgSrc!}  alt={''}/>
+            <Card.Img   variant={'top'} src={!urlToImage?DEFAULT_SRC_IMG : urlToImage}  alt={''}/>
             <Card.Title >
                 {title}
             </Card.Title>

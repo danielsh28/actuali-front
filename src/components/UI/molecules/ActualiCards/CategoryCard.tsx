@@ -19,8 +19,9 @@ const CategoryCard : React.FC<ICategoryData>  = ({catName,urlToImage,setUserChoi
 
     function markCategory(e:React.MouseEvent<HTMLInputElement>){
         setUserChoice(catName);
-        setIsClicked(!isClicked)
+        setIsClicked(!isClicked);
     }
+
     return(
     <div  key={catName} className={styles.main} onClick={markCategory}>
         <img className={styles.categoryImg} alt={'category-card'} src={urlToImage}/>

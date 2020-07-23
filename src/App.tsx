@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Switch,} from 'react-router-dom';
 import ActualiWidgetTamplate from './components/UI/organisms/WidgetTemplate/ActualiWidgetTamplate';
 import LandPageTemplate from './components/tamplets/LandingPage/LandingPage';
@@ -16,13 +16,12 @@ const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
             height : appHeight,
         }
     }
-    console.log(`user status :${userStatus}`);
-    console.log(`${userStatus !== LoggedUserStatus.NOT_INITIALIZED}`);
+
   return (
     <div className= {styles.App} style={mainStyles.main}>
         <Switch>
         <Route  exact path={'/'} render= {()=> <LandPageTemplate/>}/>
-        <Route path={`/${userStatus === LoggedUserStatus.EXIST ? 'userDashboard' : 'choose-news'}`} render = { () => <NewsDashboard/>}/>
+        <Route path={`/(userDashboard|choose-news)`} render = { () => <NewsDashboard/>}/>
         </Switch>
     </div>
   );
@@ -32,7 +31,7 @@ const mapStateToProps =  (state :RootState)=>{
    return {
        appHeight: state.userLoginStatus.height,
        isUserLogged: state.userLoginStatus.isLogin,
-       userStatus : state.userState.status
+       userStatus : state.userStatus.status
    }
 };
 

@@ -7,27 +7,38 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../store/configureStore";
 import {AnyAction} from "redux";
 import {fetchData} from "../../../store/actions/DataFetchingActions";
-import styles  from './NewsDahsboard.module.scss';
+import styles from './NewsDahsboard.module.scss';
+import {MIN_CATEGORIES_NUM} from "../../../utils/app-constants";
+import {changeUserStatusToExist} from "../../../store/actions/UserStatusActions";
+import {INewsData, NewsCard} from "../../UI/molecules/ActualiCards/NewsCard";
+import {CardMapFunction} from "../../../AppTypes";
 
 interface IDashboard {
-    isLogin : boolean,
     userStatus:LoggedUserStatus;
-    getWidgets : Function;
-    categoryNum :number
+    getWidgets : CardMapFunction;
+    categoryNum :number;
+    changeToExistUser :Function;
 }
 
-const NewsDashboard:React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,getWidgets})=>{
+const NewsDashboard:React.FC<IDashboard> = ({changeToExistUser, categoryNum,userStatus,getWidgets})=>{
+    const handleCatSubmit = (e:any) => {
+        e.preventDefault();
+        if(categoryNum >= MIN_CATEGORIES_NUM){
+            changeToExistUser( (news:INewsData,index :number) => {
+                return   <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url}/>;
+            });
+        }
+    }
 
     useEffect( ()=>{
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         if(userStatus === LoggedUserStatus.FIRST_LOGIN) {
-            getWidgets('/web-api/choose-category');
+            getWidgets('/api/choose-category');
         }
-        else  {
-            getWidgets('/web-api/user-dashboard');
-
+        else if(userStatus === LoggedUserStatus.EXIST) {
+            getWidgets('/api/user-dashboard');
         }
-    },[getWidgets, isLogin, userStatus]);
+    }, [getWidgets,userStatus]);
 
     return ( <div>
         {userStatus === LoggedUserStatus.EXIST &&
@@ -39,7 +50,9 @@ const NewsDashboard:React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,get
                     <div>
                         <h1>Actuali</h1>
                         <h1><div className={styles.chosenCategories}> {categoryNum} </div>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך </h1>
-                    </div> : <div> Welcome back  User!</div>)
+                        <button onClick={handleCatSubmit} className={styles.submitCatButton}>המשך לפרופיל</button>
+                    </div> : <div> Welcome back  User!</div>
+            )
         }
     <ActualiWidgetTamplate/>
     </div> )
@@ -47,14 +60,14 @@ const NewsDashboard:React.FC<IDashboard> = ({ categoryNum,isLogin,userStatus,get
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=> ({
     getWidgets : (query:string)=> dispatch(fetchData(query)),
+    changeToExistUser : (mapFunc: CardMapFunction) =>dispatch(changeUserStatusToExist(mapFunc))
 
 });
 const mapStateToProps = (state:RootState) =>({
-    mapFunction: state.userState.mapFunc,
+    mapFunction: state.userStatus.mapFunc,
     widgetsData: state.fetchDataState.data,
-    isLogin: state.userLoginStatus.isLogin,
-    userStatus: state.userState.status,
-    categoryNum : state.userState.categories.length
+    userStatus: state.userStatus.status,
+    categoryNum : state.userStatus.categories.length
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(NewsDashboard)
