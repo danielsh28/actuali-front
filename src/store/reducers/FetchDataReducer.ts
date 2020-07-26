@@ -18,7 +18,8 @@ switch (action.type) {
     case FETCH_DATA_SUCCESS :
         state = {
             ...state,
-            data:action.payload.data
+            data:action.payload.data,
+            loading:false
         }
         break;
     case FETCH_DATA_ERROR:

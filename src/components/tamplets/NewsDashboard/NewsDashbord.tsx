@@ -12,18 +12,20 @@ import {MIN_CATEGORIES_NUM} from "../../../utils/app-constants";
 import {changeUserStatusToExist} from "../../../store/actions/UserStatusActions";
 import {INewsData, NewsCard} from "../../UI/molecules/ActualiCards/NewsCard";
 import {CardMapFunction} from "../../../AppTypes";
+import query from 'query-string';
 
 interface IDashboard {
     userStatus:LoggedUserStatus;
     getWidgets : CardMapFunction;
-    categoryNum :number;
+    categories :Array<string>;
     changeToExistUser :Function;
+    isLoading:boolean;
 }
 
-const NewsDashboard:React.FC<IDashboard> = ({changeToExistUser, categoryNum,userStatus,getWidgets})=>{
+const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, categories,userStatus,getWidgets})=>{
     const handleCatSubmit = (e:any) => {
         e.preventDefault();
-        if(categoryNum >= MIN_CATEGORIES_NUM){
+        if(categories.length >= MIN_CATEGORIES_NUM){
             changeToExistUser( (news:INewsData,index :number) => {
                 return   <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url}/>;
             });
@@ -36,7 +38,8 @@ const NewsDashboard:React.FC<IDashboard> = ({changeToExistUser, categoryNum,user
             getWidgets('/api/choose-category');
         }
         else if(userStatus === LoggedUserStatus.EXIST) {
-            getWidgets('/api/user-dashboard');
+            getWidgets(`/api/user-dashboard?${query.stringify({cat:categories})
+            }`);
         }
     }, [getWidgets,userStatus]);
 
@@ -49,12 +52,12 @@ const NewsDashboard:React.FC<IDashboard> = ({changeToExistUser, categoryNum,user
                 userStatus === LoggedUserStatus.FIRST_LOGIN ?
                     <div>
                         <h1>Actuali</h1>
-                        <h1><div className={styles.chosenCategories}> {categoryNum} </div>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך </h1>
+                        <h1><div className={styles.chosenCategories}> {categories.length} </div>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך </h1>
                         <button onClick={handleCatSubmit} className={styles.submitCatButton}>המשך לפרופיל</button>
                     </div> : <div> Welcome back  User!</div>
             )
         }
-    <ActualiWidgetTamplate/>
+        {isLoading ? <p>Loading............</p> : <ActualiWidgetTamplate/>}
     </div> )
 }
 
@@ -66,8 +69,9 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=> (
 const mapStateToProps = (state:RootState) =>({
     mapFunction: state.userStatus.mapFunc,
     widgetsData: state.fetchDataState.data,
+    isLoading: state.fetchDataState.loading,
     userStatus: state.userStatus.status,
-    categoryNum : state.userStatus.categories.length
+    categories : state.userStatus.categories
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(NewsDashboard)
