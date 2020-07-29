@@ -42,5 +42,5 @@ export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,A
         dispatch(fetchDataSuccess(res.data));
     }).catch(err=>{
         dispatch(fetchDataError(`Error in data fetching from server: ${err}`));
-    })},3000);
+    })},1000);
 }

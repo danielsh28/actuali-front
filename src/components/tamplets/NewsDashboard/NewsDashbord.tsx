@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import ActualiWidgetTamplate from "../../UI/organisms/WidgetTemplate/ActualiWidgetTamplate";
 import {LoggedUserStatus} from "../../../store/types";
 import ActualiHeader from "../../UI/organisms/Header/ActualiHeader";
 import {ThunkDispatch} from "redux-thunk";
@@ -13,6 +12,7 @@ import {changeUserStatusToExist} from "../../../store/actions/UserStatusActions"
 import {INewsData, NewsCard} from "../../UI/molecules/ActualiCards/NewsCard";
 import {CardMapFunction} from "../../../AppTypes";
 import query from 'query-string';
+import ActualiWidgetTamplate from "../../UI/organisms/WidgetTemplate/ActualiWidgetTamplate";
 
 interface IDashboard {
     userStatus:LoggedUserStatus;
@@ -33,7 +33,6 @@ const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, catego
     }
 
     useEffect( ()=>{
-        window.scrollTo(0, 0);
         if(userStatus === LoggedUserStatus.FIRST_LOGIN) {
             getWidgets('/api/choose-category');
         }
@@ -43,22 +42,22 @@ const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, catego
         }
     }, [getWidgets,userStatus]);
 
-    return ( <div>
+    return ( <React.Fragment>
         {userStatus === LoggedUserStatus.EXIST &&
         <ActualiHeader/>
             }
         {
             userStatus !== LoggedUserStatus.NOT_INITIALIZED  && (
                 userStatus === LoggedUserStatus.FIRST_LOGIN ?
-                    <div>
+                    <React.Fragment>
                         <h1>Actuali</h1>
                         <h1><div className={styles.chosenCategories}> {categories.length} </div>אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך </h1>
                         <button onClick={handleCatSubmit} className={styles.submitCatButton}>המשך לפרופיל</button>
-                    </div> : <div> Welcome back  User!</div>
+                    </React.Fragment> : <div> Welcome back  User!</div>
             )
         }
         {isLoading ? <p>Loading............</p> : <ActualiWidgetTamplate/>}
-    </div> )
+    </React.Fragment> )
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=> ({

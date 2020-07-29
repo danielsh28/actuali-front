@@ -24,7 +24,6 @@ interface ILoginBox {
 
 const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew,userStatus})=>{
 
-
     const handleSubmit = (event :any)=>{
         event.preventDefault();
         loginUser(AppHeight.DASHBOARD);

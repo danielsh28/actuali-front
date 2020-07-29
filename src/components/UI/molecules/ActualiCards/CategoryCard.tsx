@@ -18,6 +18,7 @@ const CategoryCard : React.FC<ICategoryData>  = ({catName,urlToImage,setUserChoi
     const [isClicked,setIsClicked] = useState(false);
 
     function markCategory(e:React.MouseEvent<HTMLInputElement>){
+        e.preventDefault();
         setUserChoice(catName);
         setIsClicked(!isClicked);
     }

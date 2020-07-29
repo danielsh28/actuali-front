@@ -1,10 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Switch,} from 'react-router-dom';
-import ActualiWidgetTamplate from './components/UI/organisms/WidgetTemplate/ActualiWidgetTamplate';
 import LandPageTemplate from './components/tamplets/LandingPage/LandingPage';
 import {connect} from "react-redux";
 import {RootState} from "./store/configureStore";
-import {LoggedUserStatus} from "./store/types";
 import {IAppProps} from "./AppTypes";
 import styles from './App.module.scss';
 import NewsDashboard from "./components/tamplets/NewsDashboard/NewsDashbord";
