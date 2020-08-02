@@ -18,11 +18,11 @@ const ActualiWidgetTamplate :React.FC<IWidgetTemplate> =  function ({mapFunction
        if(isLogin){
            const cardList  = widgetsData.map(mapFunction);
            return (
-               <div>
+               <React.Fragment>
                <div className={`${styles.newsContainer}`}>
                    {cardList}
            </div>
-               </div>
+               </React.Fragment>
            )
 
        }
