@@ -44,6 +44,17 @@ const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, catego
 
     }, [getWidgets,userStatus]);
 
+    function handleScroll(event :Event ){
+        const {clientHeight, scrollHeight ,scrollTop} =document.scrollingElement!;
+        if (scrollTop !=0 && (scrollHeight - scrollTop ===  clientHeight)) {
+            console.log('User Reached The Bottom Scroll!');
+        }
+    }
+
+    useEffect(()=> {
+        window.addEventListener('scroll',handleScroll);
+        return () => window.removeEventListener('scroll',handleScroll);
+    },[])
 
 
 
