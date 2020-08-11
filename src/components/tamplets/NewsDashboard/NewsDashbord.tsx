@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useRef} from "react";
 import {connect} from "react-redux";
 import {LoggedUserStatus} from "../../../store/types";
 import ActualiHeader from "../../UI/organisms/Header/ActualiHeader";
@@ -23,6 +23,7 @@ interface IDashboard {
 }
 
 const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, categories,userStatus,getWidgets})=>{
+    const dashboardRef = useRef<HTMLDivElement>(null);
     const handleCatSubmit = (e:any) => {
         e.preventDefault();
         if(categories.length >= MIN_CATEGORIES_NUM){
@@ -40,9 +41,13 @@ const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, catego
             getWidgets(`/api/user-dashboard?${query.stringify({cat:categories})
             }`);
         }
+
     }, [getWidgets,userStatus]);
 
-    return ( <React.Fragment>
+
+
+
+    return ( <div className={'dashboard'} ref ={dashboardRef} >
         {userStatus === LoggedUserStatus.EXIST &&
         <ActualiHeader/>
             }
@@ -56,8 +61,8 @@ const NewsDashboard:React.FC<IDashboard> = ({isLoading,changeToExistUser, catego
                     </React.Fragment> : <div> Welcome back  User!</div>
             )
         }
-        {isLoading ? <p>Loading............</p> : <ActualiWidgetTamplate/>}
-    </React.Fragment> )
+        {isLoading ? <div  className={styles.loader}></div> : <ActualiWidgetTamplate/>}
+    </div> )
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=> ({

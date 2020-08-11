@@ -16,3 +16,20 @@
   background: rgb(255, 202, 108);
   border : 0.05rem solid darkblue;
 }
+.loader{
+  margin:1rem auto;
+  border: 0.5rem solid #f3f3f3;
+  border-top : 0.5rem solid rgb(255, 202, 108);
+  border-radius: 50%;
+  width: 5vw;
+  height: 5vw;
+  animation: loaderSpinner 1s linear infinite;
+}
+  @keyframes  loaderSpinner {
+   0% {
+     transform: rotate(0deg);
+   }
+   100% {
+     transform: rotate(360deg);
+   }
+ };
