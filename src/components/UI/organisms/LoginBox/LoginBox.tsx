@@ -10,7 +10,6 @@ import {AppHeight, LoggedUserStatus} from "../../../../store/types";
 import {RootState} from "../../../../store/configureStore";
 import CategoryCard, {ICategoryData} from '../../molecules/ActualiCards/CategoryCard';
 import styles from './LoginBox.module.scss';
-import {Col} from "react-bootstrap";
 import {CardMapFunction} from "../../../../AppTypes";
 import {changeToLogin} from '../../../../store/actions/LoginStatusActions';
 
@@ -24,7 +23,6 @@ interface ILoginBox {
 }
 
 const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew,userStatus})=>{
-
 
     const handleSubmit = (event :any)=>{
         event.preventDefault();
@@ -70,7 +68,7 @@ const LoginBox :React.FC<ILoginBox> =({loginUser,isLoginValid,logUserAsNew,userS
 const mapStateToProps = (state:RootState)=>{
     return {
         isLoginValid : state.userLoginStatus.isLogin,
-        userStatus: state.userState.status
+        userStatus: state.userStatus.status
     }
 
 }

@@ -38,9 +38,9 @@ const fetchDataSuccess = (data: any) => {
 //  main action taht will be exposed to components.
 export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,AnyAction> => (dispatch:ThunkDispatch<RootState,{},AnyAction>) => {
     dispatch(fetchDataRequest());
-    axios.get(query).then((res)=>{
+    setTimeout(()=>{axios.get(query).then((res)=>{
         dispatch(fetchDataSuccess(res.data));
     }).catch(err=>{
         dispatch(fetchDataError(`Error in data fetching from server: ${err}`));
-    })
+    })},1000);
 }

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 
 export const rootReducer  = combineReducers({
     userLoginStatus:appHeightReducer,
-    userState:userStateReducer,
+    userStatus:userStateReducer,
     fetchDataState:fetchDataReducer
 })
 export default function configureStore (){

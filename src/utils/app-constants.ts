@@ -7,3 +7,5 @@ export const MOCKS_DIR =  `${process.env.PUBLIC_URL}/assets/images/`;
 
 // TODO need to add production url well it will e ready
 export const ACTUALI_SERVER_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '';
+
+export  const MIN_CATEGORIES_NUM = 3;

@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from "react-bootstrap/Button";
-import {useState} from 'react';
 import {DEFAULT_SRC_IMG} from '../../../../utils/app-constants';
 import styles from './NewsCard.module.scss';
 
@@ -14,23 +12,14 @@ export interface INewsData {
 }
 
  export const NewsCard :React.FC<INewsData> = ({title,urlToImage,url})=>{
-    const [imgSrc,setImgeSrc] = useState<string|null>(urlToImage);
-
-    useEffect(()=>{
-        if(imgSrc== null){
-            setImgeSrc(DEFAULT_SRC_IMG);
-        }
-    },[]);
     return (
-        <Card className={styles.newsCard} >
-            <Card.Img   variant={'top'} src={imgSrc!}  alt={''}/>
+        <div className={styles.newsCard} >
+            <img   className={styles.imgArticle} src={!urlToImage?DEFAULT_SRC_IMG : urlToImage}  alt={''}/>
             <Card.Title >
                 {title}
             </Card.Title>
-            <Card.Link>
-                <Button variant={'primary'}  href={url}>
+            <a href={url}>
                     {'מעבר לכתבה'}
-                </Button>
-            </Card.Link>
-        </Card>)
+            </a>
+        </div>)
 };
