@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {RootState} from "./store/configureStore";
 import {IAppProps} from "./AppTypes";
 import styles from './App.module.scss';
-import NewsDashboard from "./components/tamplets/NewsDashboard/NewsDashbord";
+import NewsDashboard from "./components/tamplets/NewsDashboard/HomePage";
 
 
 const App: React.FC<IAppProps> = ({appHeight,userStatus,isUserLogged}) => {
