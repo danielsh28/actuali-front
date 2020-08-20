@@ -33,7 +33,6 @@ const CategoriesContainer: React.FC<ICatProps> = ({isLoading, mapFunction,isLogi
           { isLoading ?
                 <div className={styles.loader}> </div> :
                 <React.Fragment>
-              <ActualiSignUpHeader/>
             <div  className={`${styles.mainContainer} container`}>
             {widgetsData.map(mapFunction)}
             </div>

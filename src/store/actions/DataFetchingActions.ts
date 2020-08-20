@@ -1,4 +1,4 @@
-import {FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS} from "../types";
+import {FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FetchActionsTypes} from "../types";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import axios from "axios";
 import {AnyAction} from "redux";
@@ -36,7 +36,7 @@ const fetchDataSuccess = (data: any) => {
 }
 
 //  main action taht will be exposed to components.
-export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,AnyAction> => (dispatch:ThunkDispatch<RootState,{},AnyAction>) => {
+export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,FetchActionsTypes> => (dispatch:ThunkDispatch<RootState,{},AnyAction>) => {
     dispatch(fetchDataRequest());
     setTimeout(()=>{axios.get(query).then((res)=>{
         dispatch(fetchDataSuccess(res.data));

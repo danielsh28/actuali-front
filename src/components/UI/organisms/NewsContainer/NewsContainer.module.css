@@ -1,8 +1,7 @@
 .mainContainer{
-    position: absolute;
     height: auto;
     left:15vw ;
-    width: 70vw;
+    width: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

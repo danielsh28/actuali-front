@@ -10,6 +10,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {fetchData} from "../../../../store/actions/DataFetchingActions";
 import ActualiUserHeader from "../Header/ActualiUserHeader";
+import {INITIAL_NEWS_FETCH,NEWS_EACH_FETCH} from "../../../../utils/app-constants";
 
 interface INewsProps {
     getWidgets : CardMapFunction;
@@ -22,27 +23,27 @@ interface INewsProps {
 }
 
 const NewsContainer :React.FC<INewsProps> =  function ({isLoading,categories,getWidgets,mapFunction,widgetsData,isLogin,userStatus}) {
-    const [newsCounter,_setNewsCounter] = useState(5);
+    const [newsCounter,_setNewsCounter] = useState(INITIAL_NEWS_FETCH);
     const counterRef = useRef<number>(newsCounter);
+    let timeout :any;
 
     const setNewsCounter = (num:number) => {
         counterRef.current = num;
         _setNewsCounter(num);
     }
 
-
     const handleScroll = (event :Event ) => {
-        event.preventDefault();
-        const {clientHeight, scrollHeight ,scrollTop} = document.scrollingElement!;
-        if (scrollHeight - scrollTop ===  clientHeight) {
-                setNewsCounter(counterRef.current + 1);
+        const {clientHeight, scrollHeight, scrollTop} = document.scrollingElement!;
+        if(scrollTop != 0 || isLoading) {
+            if (scrollHeight - scrollTop === clientHeight) {
+                setNewsCounter(counterRef.current + NEWS_EACH_FETCH);
                 console.log(counterRef.current);
+            }
         }
     }
 
     useEffect(()=> {
        window.addEventListener('scroll',handleScroll);
-        return () => window.removeEventListener('scroll',handleScroll);
     },[])
 
     useEffect( () => {
@@ -53,18 +54,13 @@ const NewsContainer :React.FC<INewsProps> =  function ({isLoading,categories,get
     ///if user not logged in - return to landing page
        if(isLogin){
            return (
-               <React.Fragment>
-                   {
-                       isLoading ? <div className={styles.loader}></div> :
+
                            <React.Fragment>
-                           <ActualiUserHeader/>
-                               <div>{`number of news Headlines :${newsCounter}`}</div>
                                <div className={`${styles.mainContainer} container`}>
                        {widgetsData.map(mapFunction)}
                        </div>
+                               {isLoading && <div className={styles.loader}></div>}
                            </React.Fragment>
-                               }
-               </React.Fragment>
            )
 
        }
