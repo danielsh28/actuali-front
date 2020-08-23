@@ -72,8 +72,9 @@ export interface IUserStatusState {
  * types for the fetch data
  */
 export const FETCH_DATA_REQUEST = '[FETCH] DATA REQUEST';
-export const FETCH_DATA_SUCCESS = '[FETCH] DATA SUCCESS ';
+export const FETCH_DATA_SUCCESS = '[FETCH] DATA SUCCESS';
 export const FETCH_DATA_ERROR = '[FETCH] DATA ERROR';
+export const CLEAR_DATA = '[CLEAR] DATA';
 
 export interface IFetchRequestAction {
     type:typeof  FETCH_DATA_REQUEST,

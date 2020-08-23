@@ -25,7 +25,7 @@ interface INewsProps {
 const NewsContainer :React.FC<INewsProps> =  function ({isLoading,categories,getWidgets,mapFunction,widgetsData,isLogin,userStatus}) {
     const [newsCounter,_setNewsCounter] = useState(INITIAL_NEWS_FETCH);
     const counterRef = useRef<number>(newsCounter);
-    let timeout :any;
+    let isLoadingRef = useRef<boolean>(isLoading);
 
     const setNewsCounter = (num:number) => {
         counterRef.current = num;
@@ -34,22 +34,28 @@ const NewsContainer :React.FC<INewsProps> =  function ({isLoading,categories,get
 
     const handleScroll = (event :Event ) => {
         const {clientHeight, scrollHeight, scrollTop} = document.scrollingElement!;
-        if(scrollTop != 0 || isLoading) {
-            if (scrollHeight - scrollTop === clientHeight) {
+            if ( !isLoadingRef.current && scrollHeight - scrollTop === clientHeight) {
                 setNewsCounter(counterRef.current + NEWS_EACH_FETCH);
                 console.log(counterRef.current);
-            }
+
         }
     }
-
+//in mounting and clean add and remove the window  event listeners.
     useEffect(()=> {
        window.addEventListener('scroll',handleScroll);
+        return ()=> window.removeEventListener('scroll',handleScroll)
     },[])
 
+// call the fetch news action
     useEffect( () => {
         getWidgets(`/api/user-dashboard?${query.stringify({cat:categories,count:newsCounter})
             }`);
     }, [newsCounter,getWidgets,userStatus]);
+    // update isLoading reference for window event
+    useEffect(()=>{
+        isLoadingRef.current = isLoading;
+
+    },[isLoading])
 
     ///if user not logged in - return to landing page
        if(isLogin){

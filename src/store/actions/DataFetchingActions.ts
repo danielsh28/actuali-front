@@ -1,4 +1,4 @@
-import {FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FetchActionsTypes} from "../types";
+import {CLEAR_DATA, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FetchActionsTypes} from "../types";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import axios from "axios";
 import {AnyAction} from "redux";
@@ -34,7 +34,20 @@ const fetchDataSuccess = (data: any) => {
 
     }
 }
+{
 
+}
+export const clearData = () => {
+    return {
+        type: CLEAR_DATA,
+        payload: {
+            loading: false,
+            data: [],
+            error: ''
+        }
+    }
+
+}
 //  main action taht will be exposed to components.
 export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,FetchActionsTypes> => (dispatch:ThunkDispatch<RootState,{},AnyAction>) => {
     dispatch(fetchDataRequest());
@@ -42,5 +55,5 @@ export const  fetchData  = (query:string) : ThunkAction<void,RootState,unknown,F
         dispatch(fetchDataSuccess(res.data));
     }).catch(err=>{
         dispatch(fetchDataError(`Error in data fetching from server: ${err}`));
-    })},1000);
+    })},2000);
 }

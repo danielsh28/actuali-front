@@ -9,18 +9,21 @@ import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {CardMapFunction} from "../../../../AppTypes";
 import {changeUserStatusToExist} from "../../../../store/actions/UserStatusActions";
+import {clearData} from "../../../../store/actions/DataFetchingActions";
 
 
 interface ISUHeaderProps{
     userStatus:LoggedUserStatus,
     categories : Array<string>,
     changeToExistUser:Function,
+    clearData : Function
 }
-const ActualiSignUpHeader : React.FC<ISUHeaderProps> = ({userStatus,categories,changeToExistUser}) => {
+const ActualiSignUpHeader : React.FC<ISUHeaderProps> = ({clearData,userStatus,categories,changeToExistUser}) => {
 
     const handleCatSubmit = (e:any) => {
         e.preventDefault();
         if(categories.length >= MIN_CATEGORIES_NUM){
+            clearData();
             changeToExistUser( (news:INewsData,index :number) => {
                 return   <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url}/>;
             });
@@ -49,7 +52,8 @@ const mapStateToProps = (state:RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=>({
-    changeToExistUser  : (func :CardMapFunction)=> dispatch(changeUserStatusToExist(func))
+    changeToExistUser  : (func :CardMapFunction)=> dispatch(changeUserStatusToExist(func)),
+    clearData: ()=> dispatch(clearData())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ActualiSignUpHeader);

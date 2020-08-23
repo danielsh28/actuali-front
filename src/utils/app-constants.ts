@@ -9,6 +9,6 @@ export const MOCKS_DIR =  `${process.env.PUBLIC_URL}/assets/images/`;
 export const ACTUALI_SERVER_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '';
 
 export  const MIN_CATEGORIES_NUM = 3;
-export const  NEWS_EACH_FETCH = 2;
+export const  NEWS_EACH_FETCH = 12;
 
-export const  INITIAL_NEWS_FETCH = 10;
+export const  INITIAL_NEWS_FETCH = 12;
