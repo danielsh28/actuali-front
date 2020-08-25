@@ -11,8 +11,8 @@ interface IDashboard {
     userStatus:LoggedUserStatus;
 }
 
-const HomePage:React.FC<IDashboard> = ({userStatus})=>{
-    return ( <div className={'homePage'}  >
+const HomePage : React.FC<IDashboard> = ({userStatus})=>{
+    return ( <div className={'homePage'} >
         {
             userStatus === LoggedUserStatus.EXIST ?
                 <React.Fragment>
@@ -26,8 +26,8 @@ const HomePage:React.FC<IDashboard> = ({userStatus})=>{
     </div> )
 }
 
-const mapStateToProps = (state:RootState) =>({
-    userStatus: state.userStatus.status,
+const mapStateToProps = (state:RootState)=>({
+    userStatus:state.userStatus.status
 });
 
-export default connect(mapStateToProps,null)(HomePage)
+export default connect(mapStateToProps)(HomePage);

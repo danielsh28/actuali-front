@@ -7,8 +7,5 @@ export type UsersChoicesMap =  Array<string>;
 export type ActualiWidgetdata = ICategoryData | INewsData;
 
 export interface IAppProps {
-    appHeight:AppHeight,
-    userStatus : LoggedUserStatus,
-    widgets : Array<ActualiWidgetdata>,
-    isUserLogged: boolean
+    appHeight:AppHeight
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {LoggedUserStatus} from '../../../../store/types';
 import styles from './ActualiUserHeader.module.scss'
@@ -7,9 +7,9 @@ import {INewsData, NewsCard} from "../../molecules/ActualiCards/NewsCard";
 import {RootState} from "../../../../store/configureStore";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
+import {clearData} from "../../../../store/actions/DataFetchingActions";
 import {CardMapFunction} from "../../../../AppTypes";
 import {changeUserStatusToExist} from "../../../../store/actions/UserStatusActions";
-import {clearData} from "../../../../store/actions/DataFetchingActions";
 
 
 interface ISUHeaderProps{
@@ -48,12 +48,14 @@ const ActualiSignUpHeader : React.FC<ISUHeaderProps> = ({clearData,userStatus,ca
 const mapStateToProps = (state:RootState) => ({
     categories : state.userStatus.categories,
     isLogin:state.userLoginStatus.isLogin,
+    userStatus : state.userStatus.status
 
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState,{},AnyAction>)=>({
-    changeToExistUser  : (func :CardMapFunction)=> dispatch(changeUserStatusToExist(func)),
-    clearData: ()=> dispatch(clearData())
+    clearData: ()=> dispatch(clearData()),
+    changeToExistUser  : (func :CardMapFunction)=> dispatch(changeUserStatusToExist(func))
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ActualiSignUpHeader);

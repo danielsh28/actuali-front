@@ -4,7 +4,6 @@
  */
 
 import {ActualiWidgetdata, CardMapFunction, UsersChoicesMap} from "../AppTypes";
-import {UserInfo} from "os";
 
 export enum AppHeight {
     DASHBOARD = '100vh',
