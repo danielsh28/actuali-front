@@ -1,8 +1,7 @@
-import React from 'react';
-import styles from './DynamicPharse.module.scss';
+import React from "react";
+import styles from "./DynamicPharse.module.scss";
 
-const DynamicPhrase:React.FC = ()=>{
-
-    return <div className={styles.phrase}>אקטואלי</div>;
+const DynamicPhrase: React.FC = () => {
+  return <div className={styles.phrase}>אקטואלי</div>;
 };
-export  default  DynamicPhrase;
+export default DynamicPhrase;

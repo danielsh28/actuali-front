@@ -1,41 +1,42 @@
-.categoryImg{
-    width: 100%;
-    height: 100%;
-    border-radius: 10%;
+.categoryImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
 }
-.main{
-    position: relative;
-    height:15rem;
-    width: 25rem;
-    margin: 2vh;
- }
+.main {
+  position: relative;
+  height: 15rem;
+  width: 25rem;
+  margin: 2vh;
+}
 .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    font-size: 1.5rem;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    border:none;
-    &:focus{
-      outline:none;
-    }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 }
 
-.notChosen{
-    background :rgba(0,49,76,0.5);
-    border-radius: 10%;
-    color: rgba(255,255,255,1);
+.notChosen {
+  background: rgba(0, 49, 76, 0.5);
+  border-radius: 10%;
+  color: rgba(255, 255, 255, 1);
 }
-.overlay:hover,.chosen{
-    background: rgba(255, 202, 108, 0.5);
-    color: rgba(0,49,76,1);
-    border-radius: 10%;
+.overlay:hover,
+.chosen {
+  background: rgba(255, 202, 108, 0.5);
+  color: rgba(0, 49, 76, 1);
+  border-radius: 10%;
 }
 .checkedIcon {
-    width: 2vw;
-    height: 2vh;
+  width: 2vw;
+  height: 2vh;
 }

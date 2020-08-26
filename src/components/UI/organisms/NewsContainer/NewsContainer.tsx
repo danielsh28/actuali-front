@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { RootState } from "../../../../store/configureStore";
@@ -43,7 +43,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
   const [newsCounter, _setNewsCounter] = useState(INITIAL_NEWS_FETCH);
   const counterRef = useRef<number>(newsCounter);
   let isLoadingRef = useRef<boolean>(isLoading);
-  const handleScroll = useCallback(() =>{
+  const handleScroll = useCallback(() => {
     const {
       clientHeight,
       scrollHeight,
@@ -52,8 +52,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
     if (!isLoadingRef.current && scrollHeight - scrollTop === clientHeight) {
       setNewsCounter(counterRef.current + NEWS_EACH_FETCH);
     }
-
-  },[]);
+  }, []);
 
   const loadMoreNews = useCallback(() => {
     const currentSize = widgetsData.length;
@@ -64,8 +63,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
       };
       fetchNews(params);
     }
-  },[categories,fetchNews,widgetsData.length,newsCounter]);
-
+  }, [categories, fetchNews, widgetsData.length, newsCounter]);
 
   const setNewsCounter = (num: number) => {
     counterRef.current = num;
@@ -77,7 +75,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll,]);
+  }, [handleScroll]);
 
   // update isLoading reference for window event
   useEffect(() => {
@@ -91,7 +89,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
     } else {
       loadMoreNews();
     }
-  }, [newsCounter,categories,fetchNews,widgetsData.length,loadMoreNews]);
+  }, [newsCounter, categories, fetchNews, widgetsData.length, loadMoreNews]);
 
   if (isLogin) {
     return (
