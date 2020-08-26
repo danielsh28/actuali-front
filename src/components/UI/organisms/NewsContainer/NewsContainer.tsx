@@ -42,7 +42,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
 }) {
   const [newsCounter, _setNewsCounter] = useState(INITIAL_NEWS_FETCH);
   const counterRef = useRef<number>(newsCounter);
-  let isLoadingRef = useRef<boolean>(isLoading);
+  const isLoadingRef = useRef<boolean>(isLoading);
   const handleScroll = useCallback(() => {
     const {
       clientHeight,

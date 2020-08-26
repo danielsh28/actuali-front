@@ -16,7 +16,7 @@ import { CardMapFunction } from "../../../../AppTypes";
 import { changeToLogin } from "../../../../store/actions/LoginStatusActions";
 
 interface ILoginBox {
-  loginUser: Function;
+  loginUser: (height:AppHeight) => void;
   isLoginValid: boolean;
   logUserAsNew: CardMapFunction;
   userStatus: LoggedUserStatus;
@@ -55,7 +55,7 @@ const LoginBox: React.FC<ILoginBox> = ({
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            {`We'll never share your email with anyone else.`}
           </Form.Text>
         </Form.Group>
 
@@ -82,8 +82,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapStateToDispatch = (dispatch: Dispatch) => ({
-  loginUser: (appHeight: AppHeight) =>
-    dispatch(changeToLogin()),
+  loginUser: (appHeight: AppHeight) => dispatch(changeToLogin()),
   logUserAsNew: (mapFunc: CardMapFunction) =>
     dispatch(changeUserStatusToNew(mapFunc)),
 });
