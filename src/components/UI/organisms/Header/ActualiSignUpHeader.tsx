@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent, useEffect } from "react";
 import { connect } from "react-redux";
 import { LoggedUserStatus } from "../../../../store/types";
 import styles from "./ActualiUserHeader.module.scss";
@@ -8,26 +8,40 @@ import { RootState } from "../../../../store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { clearData } from "../../../../store/actions/DataFetchingActions";
-import { CardMapFunction } from "../../../../AppTypes";
-import { changeUserStatusToExist } from "../../../../store/actions/UserStatusActions";
+import { CardMapFunction, UsersChoicesMap } from "../../../../AppTypes";
+import {
+  changeUserStatusToExist,
+  changeUserStatusToNew,
+} from "../../../../store/actions/UserStatusActions";
+import { useHistory } from "react-router-dom";
+import CategoryCard, {
+  ICategoryData,
+} from "../../molecules/ActualiCards/CategoryCard";
 
 interface ISUHeaderProps {
   userStatus: LoggedUserStatus;
-  categories: Array<string>;
-  changeToExistUser: Function;
-  clearData: Function;
+  categories: UsersChoicesMap;
+  changeToExistUser: (func: CardMapFunction) => void;
+  clearData: () => void;
+  logUserAsNew: CardMapFunction;
 }
 const ActualiSignUpHeader: React.FC<ISUHeaderProps> = ({
   clearData,
   userStatus,
   categories,
   changeToExistUser,
+  logUserAsNew,
 }) => {
-  const handleCatSubmit = (e: any) => {
+  const history = useHistory();
+
+  const handleCatSubmit = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault();
     if (categories.length >= MIN_CATEGORIES_NUM) {
       clearData();
-      changeToExistUser((news: INewsData, index: number) => {
+      history.push("userDashboard");
+      changeToExistUser((news: INewsData, index?: number) => {
         return (
           <NewsCard
             key={index}
@@ -40,6 +54,17 @@ const ActualiSignUpHeader: React.FC<ISUHeaderProps> = ({
     }
   };
 
+  useEffect(() => {
+    logUserAsNew((category: ICategoryData, index?: number) => {
+      return (
+        <CategoryCard
+          key={index}
+          urlToImage={category.urlToImage}
+          catName={category.catName}
+        />
+      );
+    });
+  });
   return (
     <React.Fragment>
       {userStatus !== LoggedUserStatus.NOT_INITIALIZED && (
@@ -65,11 +90,13 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<RootState, {}, AnyAction>
+  dispatch: ThunkDispatch<RootState, unknown, AnyAction>
 ) => ({
   clearData: () => dispatch(clearData()),
-  changeToExistUser: (func: CardMapFunction) =>
-    dispatch(changeUserStatusToExist(func)),
+  changeToExistUser: (cardNewsMapFunc: CardMapFunction) =>
+    dispatch(changeUserStatusToExist(cardNewsMapFunc)),
+  logUserAsNew: (CategoryCardMapFunc: CardMapFunction) =>
+    dispatch(changeUserStatusToNew(CategoryCardMapFunc)),
 });
 
 export default connect(

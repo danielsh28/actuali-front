@@ -8,15 +8,12 @@ import { Dispatch } from "redux";
 import { changeUserStatusToNew } from "../../../../store/actions/UserStatusActions";
 import { AppHeight, LoggedUserStatus } from "../../../../store/types";
 import { RootState } from "../../../../store/configureStore";
-import CategoryCard, {
-  ICategoryData,
-} from "../../molecules/ActualiCards/CategoryCard";
 import styles from "./LoginBox.module.scss";
 import { CardMapFunction } from "../../../../AppTypes";
 import { changeToLogin } from "../../../../store/actions/LoginStatusActions";
 
 interface ILoginBox {
-  loginUser: (height:AppHeight) => void;
+  loginUser: (height: AppHeight) => void;
   isLoginValid: boolean;
   logUserAsNew: CardMapFunction;
   userStatus: LoggedUserStatus;
@@ -25,22 +22,11 @@ interface ILoginBox {
 const LoginBox: React.FC<ILoginBox> = ({
   loginUser,
   isLoginValid,
-  logUserAsNew,
   userStatus,
 }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     loginUser(AppHeight.DASHBOARD);
-    //todo this is were distinguish between,ew and exist user will be performed
-    logUserAsNew((category: ICategoryData, index: number) => {
-      return (
-        <CategoryCard
-          key={index}
-          urlToImage={category.urlToImage}
-          catName={category.catName}
-        />
-      );
-    });
   };
   return isLoginValid ? (
     <Redirect

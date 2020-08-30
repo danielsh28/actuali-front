@@ -34,7 +34,6 @@ export const userStateReducer = (
       };
       break;
     }
-
     case USER_TOGGLE_CHOICES: {
       state = {
         ...state,

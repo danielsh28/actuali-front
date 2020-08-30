@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 interface ICatProps {
   widgetsData: Array<ActualiWidgetdata>;
   isLogin: boolean;
-  mapFunction: CardMapFunction;
+  mapFunction?: CardMapFunction;
   fetchCategories: Function;
   isLoading: boolean;
 }
@@ -35,7 +35,7 @@ const CategoriesContainer: React.FC<ICatProps> = ({
         ) : (
           <React.Fragment>
             <div className={`${styles.mainContainer} container`}>
-              {widgetsData.map(mapFunction)}
+              {mapFunction && widgetsData.map(mapFunction)}
             </div>
           </React.Fragment>
         )}
@@ -54,7 +54,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<RootState, {}, AnyAction>
+  dispatch: ThunkDispatch<RootState, unknown, AnyAction>
 ) => ({
   fetchCategories: () => dispatch(fetchCategories()),
 });

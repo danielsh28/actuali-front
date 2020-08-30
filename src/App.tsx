@@ -17,11 +17,14 @@ const App: React.FC<IAppProps> = ({ appHeight }) => {
   return (
     <div className={styles.App} style={mainStyles.main}>
       <Switch>
-        <Route exact path={"/"} render={() => <LandPageTemplate />} />
+        <Route exact path={"/"} component = {LandPageTemplate} />
         <Route
-          path={`/(userDashboard|choose-news)`}
-          render={() => <HomePage />}
-        />
+          path={`/choose-news`}
+         component = {HomePage}
+        /><Route
+          path={`/userDashboard`}
+          component = {HomePage}
+      />
       </Switch>
     </div>
   );
