@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { RootState } from "../../../../store/configureStore";
 import styles from "./NewsContainer.module.css";
-import { ActualiWidgetdata } from "../../../../AppTypes";
-import { LoggedUserStatus } from "../../../../store/types";
+import {
+  ActualiWidgetdata,
+  CardMapFunction,
+  UsersChoicesMap,
+} from "../../../../AppTypes";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { fetchNews } from "../../../../store/actions/DataFetchingActions";
@@ -14,16 +17,11 @@ import {
 } from "../../../../utils/app-constants";
 
 interface INewsProps {
-  fetchNews: Function;
-  mapFunction: (
-    value: ActualiWidgetdata,
-    index: number,
-    array: ActualiWidgetdata[]
-  ) => void;
+  fetchNews: (params: unknown) => void;
+  mapFunction?: CardMapFunction;
   widgetsData: Array<ActualiWidgetdata>;
-  categories: Array<string>;
+  categories: UsersChoicesMap;
   isLogin: boolean;
-  userStatus: LoggedUserStatus;
   isLoading: boolean;
 }
 interface IParams {
@@ -38,7 +36,6 @@ const NewsContainer: React.FC<INewsProps> = function ({
   mapFunction,
   widgetsData,
   isLogin,
-  userStatus,
 }) {
   const [newsCounter, _setNewsCounter] = useState(INITIAL_NEWS_FETCH);
   const counterRef = useRef<number>(newsCounter);
@@ -95,7 +92,7 @@ const NewsContainer: React.FC<INewsProps> = function ({
     return (
       <React.Fragment>
         <div className={`${styles.mainContainer} container`}>
-          {widgetsData.map(mapFunction)}
+          {widgetsData.map(mapFunction!)}
         </div>
         {isLoading && <div className={styles.loader}></div>}
       </React.Fragment>
@@ -117,9 +114,9 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<RootState, {}, AnyAction>
+  dispatch: ThunkDispatch<RootState, unknown, AnyAction>
 ) => ({
-  fetchNews: (params: Object) => dispatch(fetchNews(params)),
+  fetchNews: (params: unknown) => dispatch(fetchNews(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewsContainer);

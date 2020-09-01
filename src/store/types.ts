@@ -66,7 +66,7 @@ export type LoggedUserStatusActions =
 
 export interface IUserStatusState {
   status: LoggedUserStatus;
-  mapFunc: CardMapFunction;
+  mapFunc?: CardMapFunction;
   categories: UsersChoicesMap;
 }
 /**

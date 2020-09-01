@@ -6,15 +6,18 @@ import NewsContainer from "../../UI/organisms/NewsContainer/NewsContainer";
 import CategoriesContainer from "../../UI/organisms/CategoriesContainer/CategoriesContainer";
 import ActualiUserHeader from "../../UI/organisms/Header/ActualiUserHeader";
 import ActualiSignUpHeader from "../../UI/organisms/Header/ActualiSignUpHeader";
+import { useHistory } from "react-router-dom";
 
 interface IDashboard {
   userStatus: LoggedUserStatus;
 }
 
 const HomePage: React.FC<IDashboard> = ({ userStatus }) => {
+  const history = useHistory();
   return (
     <div className={"homePage"}>
-      {userStatus === LoggedUserStatus.EXIST ? (
+      {userStatus === LoggedUserStatus.EXIST &&
+      history.location.pathname !== "/choose-news" ? (
         <React.Fragment>
           <ActualiUserHeader />
           <NewsContainer />
