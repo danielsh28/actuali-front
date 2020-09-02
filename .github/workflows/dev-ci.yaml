@@ -1,4 +1,4 @@
-name: actuali ci
+name: actuali dev
 
 on:
   push:
