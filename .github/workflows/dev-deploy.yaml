@@ -28,7 +28,7 @@ jobs:
         with:
           args: deploy --only hosting
         env:
-          FIRBASE_TOKE: ${{secrets.FIREBASE_TOKEN}}
+          FIRBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
           PROJECT_ID: actuali-news
 
 
