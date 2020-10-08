@@ -19,8 +19,10 @@ export const NewsCard: React.FC<INewsData> = ({ title, urlToImage, url }) => {
         src={!urlToImage ? DEFAULT_SRC_IMG : urlToImage}
         alt={""}
       />
+      <div className={styles.content}>
       <Card.Title>{title}</Card.Title>
       <a href={url}>{"מעבר לכתבה"}</a>
+      </div>
     </div>
   );
 };

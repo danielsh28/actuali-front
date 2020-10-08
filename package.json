@@ -35,13 +35,23 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=CHROME react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "always",
+    "trailingComma": "all",
+    "printWidth": 120
+  },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "prettier",
+      "prettier/react"
+    ]
   },
   "browserslist": {
     "production": [
