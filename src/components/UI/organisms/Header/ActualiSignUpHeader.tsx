@@ -70,9 +70,10 @@ const ActualiSignUpHeader: React.FC<ISUHeaderProps> = ({
       {userStatus !== LoggedUserStatus.NOT_INITIALIZED && (
         <React.Fragment>
           <h1>Actuali</h1>
-          <h1>
-            <div className={styles.chosenCategories}> {categories.length} </div>
-            אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך{" "}
+          <h1 className={styles.headerContent}>
+            <div id={styles.chosenCategories}> {categories.length} </div>
+          <div id={styles.userGuide}>            אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך
+          </div>
           </h1>
           <button onClick={handleCatSubmit} className={styles.submitCatButton}>
             המשך לפרופיל

@@ -7,7 +7,15 @@
   z-index: 1;
   margin-bottom: 2rem;
 }
-.chosenCategories {
+.headerContent{
+  display: flex;
+  justify-content: center;
+  color: #254961;
+
+
+}
+
+#chosenCategories {
   height: 3rem;
   width: 3rem;
   border: 0.05rem solid darkblue;

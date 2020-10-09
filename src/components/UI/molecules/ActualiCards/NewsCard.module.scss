@@ -1,12 +1,24 @@
+$border-radius : 1vw;
+$shadow-blur : 0.9*$border-radius;
+
 .newsCard {
-  width: 20rem;
-  margin: 1rem;
+  font-family: 'Roboto', sans-serif;
+  width: 30rem;
+  margin: 2rem;
   height: 30rem;
-  border: 2px solid darkblue;
-  border-radius: 1rem;
-}
+  border-radius: $border-radius;
+  -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 $shadow-blur;
+  -moz-box-shadow: rgba(0,0,0,0.8) 0 0 $shadow-blur ;
+  box-shadow: rgba(0,0,0,0.8) 0 0 $shadow-blur ;}
+
 .imgArticle {
   height: 70%;
   width: 100%;
   border-radius: 1rem;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }
