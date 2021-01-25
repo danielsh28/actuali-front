@@ -1,7 +1,15 @@
-.loginBox {
+.main{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 6px grey;
   width: 50%;
-  top: 50%;
-  z-index: 1;
+  top: 25%;
+  left: 25%;
   position: relative;
-  background-color: peru;
+  background-color: #ffca6c;
+
+}
+.submit{
+  width  : 50%;
+  margin-left: 25%;
 }
