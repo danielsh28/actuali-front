@@ -5,7 +5,6 @@ import Row from "react-bootstrap/Row";
 import SignUpBox from "../../UI/organisms/SignUpBox/SignUpBox";
 import {Button} from "react-bootstrap";
 import  {useLocation, useHistory} from 'react-router-dom';
-import {RootState} from "../../../store/configureStore";
 import LoginBox from "../../UI/organisms/LoginBox/LoginBox";
 
 const userMap : Map<string, JSX.Element> = new Map();
@@ -19,11 +18,16 @@ const LandPageTemplate: React.FC = () => {
     const history  = useHistory()
     const handleClickLogin = useCallback(() => {
         history.push('/login')
-    },[]);
+    },[history]);
+
+    const handleClickSignup = useCallback(() => {
+
+    },[])
   return (
     <div className={styles.backgroundImage}>
         <div className={styles.landingHeader}>
-            <Button onClick={handleClickLogin}> Login </Button>
+            <Button style={{margin:'0 2% 0 1%'}} onClick={handleClickLogin}> Login </Button>
+            <Button onClick={handleClickSignup}> Signup </Button>
         </div>
         <Container className={styles.container} fluid>
         <Row className={"justify-content-center"}>
@@ -34,7 +38,4 @@ const LandPageTemplate: React.FC = () => {
   );
 };
 
-const mapStateToProps = (state : RootState) =>({
-
-})
 export default LandPageTemplate;

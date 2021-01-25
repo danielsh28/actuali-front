@@ -10,7 +10,7 @@ import { AppHeight, LoggedUserStatus } from "../../../../store/types";
 import { RootState } from "../../../../store/configureStore";
 import styles from "./SignUpBox.module.scss";
 import { CardMapFunction } from "../../../../AppTypes";
-import { changeToLogged } from "../../../../store/actions/LoginStatusActions";
+import { changeToLogged } from "../../../../store/actions/UserStatusActions";
 
 interface ISignUpBox {
   loginUser: (height: AppHeight) => void;

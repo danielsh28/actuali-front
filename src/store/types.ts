@@ -16,7 +16,7 @@ export enum AppHeight {
 export const USER_LOGGED = "[USER] LOGGED";
 export const USER_NOT_LOGGED = "[USER] NOT LOGGED";
 
-export interface ILoginAction {
+export interface ILoggedAction {
   type: typeof USER_LOGGED;
   payload: boolean;
 }
@@ -25,7 +25,7 @@ export interface ILogoutAction {
   payload: boolean;
 }
 
-export type LogUserActions = ILogoutAction | ILoginAction;
+export type LogUserActions = ILogoutAction | ILoggedAction;
 
 export interface ILogState {
   height: AppHeight;
@@ -76,6 +76,7 @@ export const FETCH_DATA_REQUEST = "[FETCH] DATA REQUEST";
 export const FETCH_DATA_SUCCESS = "[FETCH] DATA SUCCESS";
 export const FETCH_DATA_ERROR = "[FETCH] DATA ERROR";
 export const CLEAR_DATA = "[CLEAR] DATA";
+export const LOGIN_USER = "[LOGIN] USER";
 
 export interface IFetchRequestAction {
   type: typeof FETCH_DATA_REQUEST;
@@ -91,10 +92,18 @@ export interface IFetchErrorAction {
   type: typeof FETCH_DATA_ERROR;
   payload: string;
 }
+export interface ILoginAction{
+  type: typeof  LOGIN_USER
+  payload : {
+    email :string,
+    pwd : string
+  }
+}
 export type FetchActionsTypes =
   | IFetchErrorAction
   | IFetchRequestAction
-  | IFetchSuccessAction;
+  | IFetchSuccessAction
+  | ILoginAction ;
 
 export interface IFetchState {
   loading: boolean;

@@ -3,7 +3,7 @@ import {
   LoggedUserStatus,
   USER_TOGGLE_CHOICES,
   USER_STATUS_EXIST,
-  USER_STATUS_NEW,
+  USER_STATUS_NEW, LogUserActions, USER_LOGGED, USER_NOT_LOGGED,
 } from "../types";
 
 export const changeUserStatusToNew = (mapFunc: CardMapFunction) => {
@@ -11,10 +11,21 @@ export const changeUserStatusToNew = (mapFunc: CardMapFunction) => {
     type: USER_STATUS_NEW,
     payload: {
       status: LoggedUserStatus.FIRST_LOGIN,
-      mapDataFunc: mapFunc,
+    mapDataFunc: mapFunc,
     },
   };
 };
+
+// action creator for changing app height
+export const changeToLogged = (): LogUserActions => ({
+  type: USER_LOGGED,
+  payload: true,
+});
+export const changeToLogout = (): LogUserActions => ({
+  type: USER_NOT_LOGGED,
+  payload: false,
+});
+
 
 export const changeUserStatusToExist = (mapFunc: CardMapFunction) => {
   return {
