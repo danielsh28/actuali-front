@@ -5,6 +5,7 @@ import styles from "./CategoryCard.module.scss";
 import { toggleUserChoice } from "../../../../store/actions/UserStatusActions";
 import { RootState } from "../../../../store/configureStore";
 import { UsersChoicesMap } from "../../../../AppTypes";
+import Button from "react-bootstrap/Button";
 
 const checkedIcon = require("../../../../assets/images/check-mark.svg");
 
@@ -33,7 +34,7 @@ const CategoryCard: React.FC<ICategoryData> = ({
         alt={"category-card"}
         src={urlToImage}
       />
-      <button
+      <Button
         className={`${styles.overlay} ${
           categories.indexOf(catName) !== -1 ? styles.chosen : styles.notChosen
         }`}
@@ -46,7 +47,7 @@ const CategoryCard: React.FC<ICategoryData> = ({
             src={checkedIcon}
           />
         )}
-      </button>
+      </Button>
     </div>
   );
 };
