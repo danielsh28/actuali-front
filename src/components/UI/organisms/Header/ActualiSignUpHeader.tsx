@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import CategoryCard, {
   ICategoryData,
 } from "../../molecules/ActualiCards/CategoryCard";
+import Button from "react-bootstrap/Button";
 
 interface ISUHeaderProps {
   userStatus: LoggedUserStatus;
@@ -66,21 +67,21 @@ const ActualiSignUpHeader: React.FC<ISUHeaderProps> = ({
     });
   });
   return (
-    <React.Fragment>
+    <>
       {userStatus !== LoggedUserStatus.NOT_INITIALIZED && (
-        <React.Fragment>
+        <>
           <h1>Actuali</h1>
           <h1 className={styles.headerContent}>
             <div id={styles.chosenCategories}> {categories.length} </div>
           <div id={styles.userGuide}>            אנא בחר לפחות 3 נושאים על מנת שנוכל להתאים את אקטואלי במיוחד עבורך
           </div>
           </h1>
-          <button onClick={handleCatSubmit} className={styles.submitCatButton}>
+          <Button  variant={'primary'} onClick={handleCatSubmit} className={styles.submitCatButton}>
             המשך לפרופיל
-          </button>
-        </React.Fragment>
+          </Button>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
