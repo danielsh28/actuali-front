@@ -8,6 +8,7 @@ export type CardMapFunction = (
   index?: number,
   array?: ActualiWidgetdata[]
 ) => unknown;
+
 export type UsersChoicesMap = Array<string>;
 export type ActualiWidgetdata = ICategoryData | INewsData;
 

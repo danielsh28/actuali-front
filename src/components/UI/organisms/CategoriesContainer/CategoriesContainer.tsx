@@ -27,7 +27,6 @@ const CategoriesContainer: React.FC<ICatProps> = ({
     fetchCategories();
   }, [fetchCategories]);
 
-  if (isLogin) {
     return (
       <React.Fragment>
         {isLoading ? (
@@ -41,10 +40,7 @@ const CategoriesContainer: React.FC<ICatProps> = ({
         )}
       </React.Fragment>
     );
-  } else {
-    return <Redirect to={"/"} />;
   }
-};
 
 const mapStateToProps = (state: RootState) => ({
   isLogin: state.userLoginStatus.isLogin,

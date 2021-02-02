@@ -1,17 +1,20 @@
-import { CardMapFunction } from "../../AppTypes";
+import { CardMapFunction } from '../../AppTypes';
 import {
   LoggedUserStatus,
   USER_TOGGLE_CHOICES,
   USER_STATUS_EXIST,
-  USER_STATUS_NEW, LogUserActions, USER_LOGGED, USER_NOT_LOGGED,
-} from "../types";
+  USER_STATUS_NEW,
+  LogUserActions,
+  USER_LOGGED,
+  USER_NOT_LOGGED,
+} from '../types';
 
-export const changeUserStatusToNew = (mapFunc: CardMapFunction) => {
+/*export const changeUserStatusToNew = (mapFunc: CardMapFunction) => {
   return {
     type: USER_STATUS_NEW,
     payload: {
       status: LoggedUserStatus.FIRST_LOGIN,
-    mapDataFunc: mapFunc,
+      mapDataFunc: mapFunc,
     },
   };
 };
@@ -26,7 +29,6 @@ export const changeToLogout = (): LogUserActions => ({
   payload: false,
 });
 
-
 export const changeUserStatusToExist = (mapFunc: CardMapFunction) => {
   return {
     type: USER_STATUS_EXIST,
@@ -35,7 +37,7 @@ export const changeUserStatusToExist = (mapFunc: CardMapFunction) => {
       mapDataFunc: mapFunc,
     },
   };
-};
+};*/
 
 export const toggleUserChoice = (userChoice: string) => {
   return {
