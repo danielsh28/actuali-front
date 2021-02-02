@@ -24,7 +24,7 @@ const App: React.FC<IAppProps> = ({ appHeight,cookies }) => {
         <Route exact path={"/(|login|signup)"} render = {() =>
             (<LandPageTemplate/>)}/>
         <Route
-          path={`/choose-news`}
+          path={`/(choose-news)`}
          render = {() => (<HomePage/>)}
         /><Route
           path={`/userDashboard`}
