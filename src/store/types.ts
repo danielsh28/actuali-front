@@ -3,7 +3,6 @@
  */
 
 import {
-  ActualiWidgetdata,
   CardMapFunction,
   UsersChoicesMap,
 } from "../AppTypes";
@@ -85,7 +84,7 @@ export interface IFetchRequestAction {
 
 export interface IFetchSuccessAction {
   type: typeof FETCH_DATA_SUCCESS;
-  payload: Array<ActualiWidgetdata>;
+  payload: Array<Object>;
 }
 // contains the error message
 export interface IFetchErrorAction {
@@ -107,6 +106,6 @@ export type FetchActionsTypes =
 
 export interface IFetchState {
   loading: boolean;
-  data: Array<ActualiWidgetdata>;
+  data: any
   error: string;
 }

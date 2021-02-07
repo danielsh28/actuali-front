@@ -1,12 +1,13 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import LandPageTemplate from "./components/tamplets/LandingPage/LandingPage";
+import { Route, Switch  } from "react-router-dom/";
 import { connect } from "react-redux";
 import { withCookies } from 'react-cookie';
 import { RootState } from "./store/configureStore";
 import styles from "./App.module.scss";
-import HomePage from "./components/tamplets/NewsDashboard/HomePage";
 import { IAppProps } from "./AppTypes";
+import {Redirect} from "react-router-dom";
+import NewsDashboard from "./components/tamplets/ActualiWebSite/newDashboard";
+import CategoryPanel from "./components/tamplets/ActualiWebSite/CategoryPanel";
 
 const App: React.FC<IAppProps> = ({ appHeight,cookies }) => {
   const mainStyles = {
@@ -21,13 +22,16 @@ const App: React.FC<IAppProps> = ({ appHeight,cookies }) => {
         //todo check if contain session cookie
       }
       <Switch>
+        <Route exact
+               path={`/`}
+         render = {() => (
+             <Redirect to={`/choose-news`}/>)}/>
         <Route
-          path={`/(|choose-news)`}
-         render = {() => (<HomePage/>)}
-        /><Route
-          path={`/userDashboard`}
-          render= {() => (<HomePage/>)}
+          path={`/choose-news`}
+          render= {() => (<CategoryPanel/>)}
       />
+      <Route path={'/userDashboard'}
+      render={() => <NewsDashboard/>}/>
       </Switch>
     </div>
   );

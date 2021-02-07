@@ -27,17 +27,16 @@ export const changeToLogged = (): LogUserActions => ({
 export const changeToLogout = (): LogUserActions => ({
   type: USER_NOT_LOGGED,
   payload: false,
-});
+});*/
 
-export const changeUserStatusToExist = (mapFunc: CardMapFunction) => {
+export const changeUserStatusToExist = () => {
   return {
     type: USER_STATUS_EXIST,
     payload: {
-      status: LoggedUserStatus.EXIST,
-      mapDataFunc: mapFunc,
+      status: LoggedUserStatus.EXIST
     },
   };
-};*/
+};
 
 export const toggleUserChoice = (userChoice: string) => {
   return {

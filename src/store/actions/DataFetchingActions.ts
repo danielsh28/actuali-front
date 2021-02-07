@@ -11,6 +11,8 @@ import {
 } from "../types";
 import { RootState } from "../configureStore";
 import {ACTUALI_SERVER_BASE_URL, ACTUALI_SERVER_BASE_URL_DEV} from "../../utils/app-constants";
+import {INewsData} from "../../components/UI/molecules/ActualiCards/NewsCard";
+import {ICategoryData} from "../../components/UI/molecules/ActualiCards/CategoryCard";
 
 console.log(`server an dev:  ${process.env.REACT_APP_BACK_DEV}`);
 console.log(`browser:  ${process.env.BROWSER}`);
@@ -28,7 +30,14 @@ const fetchDataError = (message: string) => ({
   },
 });
 
-const fetchDataSuccess = (data: any) => ({
+const fetchDataNewsSuccess = (data: INewsData) => ({
+  type: FETCH_DATA_SUCCESS,
+  payload: {
+    loading: false,
+    data,
+  },
+});
+const fetchDataCategoriesSuccess = (data: ICategoryData) => ({
   type: FETCH_DATA_SUCCESS,
   payload: {
     loading: false,
@@ -63,7 +72,7 @@ export const fetchNews = (
   axios
     .get(`/api/user-dashboard?${queryString.stringify(params)}`)
     .then((res) => {
-      dispatch(fetchDataSuccess(res.data));
+      dispatch(fetchDataNewsSuccess(res.data));
     })
     .catch((err) => {
       dispatch(fetchDataError(`Error in data fetching from server: ${err}`));
@@ -80,7 +89,7 @@ export const fetchCategories = (): ThunkAction<
   axios
     .get("/api/choose-category")
     .then((res) => {
-      dispatch(fetchDataSuccess(res.data));
+      dispatch(fetchDataCategoriesSuccess(res.data));
     })
     .catch((err) => {
       dispatch(fetchDataError(`Error in data fetching from server: ${err}`));

@@ -1,32 +1,25 @@
-import React, { MouseEvent, useEffect } from 'react';
+import React, { MouseEvent } from 'react';
 import { connect } from 'react-redux';
-import { LoggedUserStatus } from '../../../../store/types';
 import styles from './ActualiUserHeader.module.scss';
 import { MIN_CATEGORIES_NUM } from '../../../../utils/app-constants';
-import { INewsData, NewsCard } from '../../molecules/ActualiCards/NewsCard';
 import { RootState } from '../../../../store/configureStore';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { clearData } from '../../../../store/actions/DataFetchingActions';
-import { CardMapFunction, UsersChoicesMap } from '../../../../AppTypes';
-import { changeUserStatusToExist, changeUserStatusToNew } from '../../../../store/actions/UserStatusActions';
+import { UsersChoicesMap } from '../../../../AppTypes';
 import { useHistory } from 'react-router-dom';
-import CategoryCard, { ICategoryData } from '../../molecules/ActualiCards/CategoryCard';
 import Button from 'react-bootstrap/Button';
+import {changeUserStatusToExist} from "../../../../store/actions/UserStatusActions";
 
 interface ISUHeaderProps {
-  userStatus: LoggedUserStatus;
   categories: UsersChoicesMap;
-  changeToExistUser: (func: CardMapFunction) => void;
+  changeToExistUser: () => void;
   clearData: () => void;
-  logUserAsNew: CardMapFunction;
 }
 const ActualiCatChoiceHeader: React.FC<ISUHeaderProps> = ({
   clearData,
-  userStatus,
   categories,
   changeToExistUser,
-  logUserAsNew,
 }) => {
   const history = useHistory();
 
@@ -34,18 +27,11 @@ const ActualiCatChoiceHeader: React.FC<ISUHeaderProps> = ({
     e.preventDefault();
     if (categories.length >= MIN_CATEGORIES_NUM) {
       clearData();
-      history.push('userDashboard');
-      changeToExistUser((news: INewsData, index?: number) => {
-        return <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url} />;
-      });
+      history.push('/userDashboard');
+      changeToExistUser();
     }
   };
 
-  useEffect(() => {
-    logUserAsNew((category: ICategoryData, index?: number) => {
-      return <CategoryCard key={index} urlToImage={category.urlToImage} catName={category.catName} />;
-    });
-  });
   return (
     <>
       {
@@ -72,8 +58,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => ({
   clearData: () => dispatch(clearData()),
-  /*changeToExistUser: (cardNewsMapFunc: CardMapFunction) => dispatch(changeUserStatusToExist(cardNewsMapFunc)),
-  logUserAsNew: (CategoryCardMapFunc: CardMapFunction) => dispatch(changeUserStatusToNew(CategoryCardMapFunc)),*/
+  changeToExistUser: () => dispatch(changeUserStatusToExist()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualiCatChoiceHeader);

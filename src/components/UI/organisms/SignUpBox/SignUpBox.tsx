@@ -4,13 +4,10 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import {Link, Redirect} from "react-router-dom";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { changeUserStatusToNew } from "../../../../store/actions/UserStatusActions";
 import { AppHeight, LoggedUserStatus } from "../../../../store/types";
 import { RootState } from "../../../../store/configureStore";
 import styles from "./SignUpBox.module.scss";
 import { CardMapFunction } from "../../../../AppTypes";
-import { changeToLogged } from "../../../../store/actions/UserStatusActions";
 
 interface ISignUpBox {
   loginUser: (height: AppHeight) => void;
@@ -20,21 +17,11 @@ interface ISignUpBox {
 }
 
 const SignUpBox: React.FC<ISignUpBox> = ({
-  loginUser,
-  isSignUpValid,
-  userStatus,
 }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    loginUser(AppHeight.DASHBOARD);
   };
-  return isSignUpValid ? (
-    <Redirect
-      to={`/${
-        userStatus === LoggedUserStatus.EXIST ? "userDashboard" : "choose-news"
-      }`}
-    />
-  ) : (
+  return (
     <Container className={styles.SignUpBox}>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
@@ -71,9 +58,5 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapStateToDispatch = (dispatch: Dispatch) => ({
-  loginUser: (appHeight: AppHeight) => dispatch(changeToLogged()),
-  logUserAsNew: (mapFunc: CardMapFunction) =>
-    dispatch(changeUserStatusToNew(mapFunc)),
-});
-export default connect(mapStateToProps, mapStateToDispatch)(SignUpBox);
+
+export default connect(mapStateToProps, null)(SignUpBox);
