@@ -1,78 +1,42 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { RootState } from "../../../../store/configureStore";
-import styles from "./NewsContainer.module.css";
-import {
-  ActualiWidgetdata,
-  CardMapFunction,
-  UsersChoicesMap,
-} from "../../../../AppTypes";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
-import { fetchNews } from "../../../../store/actions/DataFetchingActions";
-import {
-  INITIAL_NEWS_FETCH,
-  NEWS_EACH_FETCH,
-} from "../../../../utils/app-constants";
-
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { RootState } from '../../../../store/configureStore';
+import styles from './NewsContainer.module.css';
+import { UsersChoicesMap } from '../../../../AppTypes';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { fetchNews } from '../../../../store/actions/DataFetchingActions';
+import { INITIAL_NEWS_FETCH, NEWS_EACH_FETCH } from '../../../../utils/app-constants';
+import { INewsData, NewsCard } from '../../molecules/ActualiCards/NewsCard';
+import { IParams } from '../../../../utils/utilsFuncs';
 interface INewsProps {
   fetchNews: (params: unknown) => void;
-  mapFunction?: CardMapFunction;
-  widgetsData: Array<ActualiWidgetdata>;
+  widgetsData: Array<INewsData>;
   categories: UsersChoicesMap;
-  isLogin: boolean;
   isLoading: boolean;
 }
-interface IParams {
-  count: number;
-  cat: Array<string>;
-}
 
-const NewsContainer: React.FC<INewsProps> = function ({
-  isLoading,
-  categories,
-  fetchNews,
-  mapFunction,
-  widgetsData,
-  isLogin,
-}) {
-  const [newsCounter, _setNewsCounter] = useState(INITIAL_NEWS_FETCH);
+const NewsContainer: React.FC<INewsProps> = function ({ isLoading, categories, fetchNews, widgetsData }) {
+  const [newsCounter, setNewsCounter] = useState(INITIAL_NEWS_FETCH);
   const counterRef = useRef<number>(newsCounter);
   const isLoadingRef = useRef<boolean>(isLoading);
+  const setNewsCounterWrapper = (num: number) => {
+    counterRef.current = num;
+    setNewsCounter(num);
+  };
+
   const handleScroll = useCallback(() => {
-    const {
-      clientHeight,
-      scrollHeight,
-      scrollTop,
-    } = document.scrollingElement!;
+    const { clientHeight, scrollHeight, scrollTop } = document.scrollingElement!;
     if (!isLoadingRef.current && scrollHeight - scrollTop === clientHeight) {
-      setNewsCounter(counterRef.current + NEWS_EACH_FETCH);
+      setNewsCounterWrapper(counterRef.current + NEWS_EACH_FETCH);
     }
   }, []);
 
-  const loadMoreNews = useCallback(() => {
-    const currentSize = widgetsData.length;
-    if (currentSize === newsCounter - INITIAL_NEWS_FETCH) {
-      const params: IParams = {
-        count: newsCounter,
-        cat: categories,
-      };
-      fetchNews(params);
-    }
-  }, [categories, fetchNews, widgetsData.length, newsCounter]);
-
-  const setNewsCounter = (num: number) => {
-    counterRef.current = num;
-    _setNewsCounter(num);
-  };
   // in window event using ref object to get the current render value and update newsCounter accordingly
-
-  //in mounting and clean add and remove the window  event listeners.
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
 
   // update isLoading reference for window event
   useEffect(() => {
@@ -84,38 +48,35 @@ const NewsContainer: React.FC<INewsProps> = function ({
     if (widgetsData.length === 0) {
       fetchNews({ cat: categories, count: INITIAL_NEWS_FETCH });
     } else {
-      loadMoreNews();
+      if (widgetsData.length === newsCounter - INITIAL_NEWS_FETCH) {
+        const params: IParams = {
+          count: newsCounter,
+          cat: categories,
+        };
+        fetchNews(params);
+      }
     }
-  }, [newsCounter, categories, fetchNews, widgetsData.length, loadMoreNews]);
+  }, [newsCounter, categories, fetchNews, widgetsData.length]);
 
-  if (isLogin) {
-    return (
-      <React.Fragment>
-        <div className={`${styles.mainContainer} container`}>
-          {widgetsData.map(mapFunction!)}
-        </div>
-        {isLoading && <div className={styles.loader}></div>}
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <div className={`${styles.mainContainer} container`}>
+        {widgetsData.map((news, index?: number) => {
+          return <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url} />;
+        })}
+      </div>
+      {isLoading && <div className={styles.loader}></div>}
+    </React.Fragment>
+  );
   //if user not logged in - return to landing page
-  else {
-    return <Redirect to={"/"} />;
-  }
 };
-
 const mapStateToProps = (state: RootState) => ({
-  isLogin: state.userLoginStatus.isLogin,
   widgetsData: state.fetchDataState.data,
-  mapFunction: state.userStatus.mapFunc,
-  userStatus: state.userStatus.status,
   categories: state.userStatus.categories,
   isLoading: state.fetchDataState.loading,
 });
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<RootState, unknown, AnyAction>
-) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => ({
   fetchNews: (params: unknown) => dispatch(fetchNews(params)),
 });
 

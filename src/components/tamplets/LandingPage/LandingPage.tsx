@@ -2,15 +2,12 @@ import React, {useCallback} from "react";
 import styles from "./LandingPage.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import SignUpBox from "../../UI/organisms/SignUpBox/SignUpBox";
 import {Button} from "react-bootstrap";
 import  {useLocation, useHistory} from 'react-router-dom';
 import LoginBox from "../../UI/organisms/LoginBox/LoginBox";
 
 const userMap : Map<string, JSX.Element> = new Map();
 
-userMap.set('/signup',<SignUpBox/>);
-userMap.set('/',<SignUpBox/>);
 userMap.set('/login',<LoginBox/>);
 
 const LandPageTemplate: React.FC = () => {
@@ -33,7 +30,9 @@ const LandPageTemplate: React.FC = () => {
         <Row className={"justify-content-center"}>
         </Row>
       </Container>
+{/*
         {userMap.get(location.pathname)}
+*/}
     </div>
   );
 };

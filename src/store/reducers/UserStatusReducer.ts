@@ -29,8 +29,7 @@ export const userStateReducer = (
     case USER_STATUS_EXIST: {
       state = {
         ...state,
-        mapFunc: action.payload.mapDataFunc,
-        status: LoggedUserStatus.EXIST,
+        status: LoggedUserStatus.EXIST
       };
       break;
     }
