@@ -9,18 +9,14 @@ import { clearData } from '../../../../store/actions/DataFetchingActions';
 import { UsersChoicesMap } from '../../../../AppTypes';
 import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import {changeUserStatusToExist} from "../../../../store/actions/UserStatusActions";
+import { changeUserStatusToExist } from '../../../../store/actions/UserStatusActions';
 
 interface ISUHeaderProps {
   categories: UsersChoicesMap;
   changeToExistUser: () => void;
   clearData: () => void;
 }
-const ActualiCatChoiceHeader: React.FC<ISUHeaderProps> = ({
-  clearData,
-  categories,
-  changeToExistUser,
-}) => {
+const ActualiCatChoiceHeader: React.FC<ISUHeaderProps> = ({ clearData, categories, changeToExistUser }) => {
   const history = useHistory();
 
   const handleCatSubmit = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {

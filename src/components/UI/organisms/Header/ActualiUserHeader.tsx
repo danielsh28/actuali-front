@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./ActualiUserHeader.module.scss";
+import React from 'react';
+import styles from './ActualiUserHeader.module.scss';
 
 const ActualiUserHeader: React.FC = () => {
   return (
@@ -7,7 +7,7 @@ const ActualiUserHeader: React.FC = () => {
       <h1 className={styles.logo}>Actuali</h1>
       <input type="text" className={styles.searchBar} />
       <div>
-        <p style={{ display: "inline" }}>דניאל שלי</p>
+        <p style={{ display: 'inline' }}>דניאל שלי</p>
         <img
           className={styles.profilePic}
           alt="profile pic"

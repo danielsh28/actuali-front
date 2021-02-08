@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { LoggedUserStatus } from "../../../store/types";
-import { RootState } from "../../../store/configureStore";
-import CategoriesContainer from "../../UI/organisms/CategoriesContainer/CategoriesContainer";
-import ActualiCatChoiceHeader from "../../UI/organisms/Header/ActualiCatChoiceHeader";
+import React from 'react';
+import { connect } from 'react-redux';
+import { LoggedUserStatus } from '../../../store/types';
+import { RootState } from '../../../store/configureStore';
+import CategoriesContainer from '../../UI/organisms/CategoriesContainer/CategoriesContainer';
+import ActualiCatChoiceHeader from '../../UI/organisms/Header/ActualiCatChoiceHeader';
 
 interface IDashboard {
   userStatus: LoggedUserStatus;
@@ -11,11 +11,11 @@ interface IDashboard {
 
 const CategoryPanel: React.FC<IDashboard> = () => {
   return (
-    <div className={"catPanel"}>
-        <React.Fragment>
-          <ActualiCatChoiceHeader />
-          <CategoriesContainer />
-        </React.Fragment>
+    <div className={'catPanel'}>
+      <React.Fragment>
+        <ActualiCatChoiceHeader />
+        <CategoriesContainer />
+      </React.Fragment>
     </div>
   );
 };
