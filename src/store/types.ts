@@ -3,6 +3,9 @@
  */
 
 import { CardMapFunction, UsersChoicesMap } from '../AppTypes';
+import { AnyAction } from 'redux';
+import {INewsData} from "../components/UI/molecules/ActualiCards/NewsCard";
+import {ICategoryData} from "../components/UI/molecules/ActualiCards/CategoryCard";
 
 export enum AppHeight {
   DASHBOARD = '100vh',
@@ -71,31 +74,58 @@ export const FETCH_DATA_ERROR = '[FETCH] DATA ERROR';
 export const CLEAR_DATA = '[CLEAR] DATA';
 export const LOGIN_USER = '[LOGIN] USER';
 
-export interface IFetchRequestAction {
+export enum  dataType
+{CATEGORIES, NEWS};
+
+/**
+ * ********************Action types*************************************8
+ */
+export interface IFetchRequestAction extends AnyAction {
   type: typeof FETCH_DATA_REQUEST;
   payload: undefined;
 }
 
-export interface IFetchSuccessAction {
+export interface IFetchSuccessAction extends AnyAction {
   type: typeof FETCH_DATA_SUCCESS;
-  payload: Array<Object>;
+  dataType : dataType
+  payload:  {
+    categoriesData?: ICategoryData[];
+    newsData?: INewsData[];
+  };
 }
 // contains the error message
-export interface IFetchErrorAction {
+export interface IFetchErrorAction extends AnyAction {
   type: typeof FETCH_DATA_ERROR;
   payload: string;
 }
-export interface ILoginAction {
+export interface ILoginAction extends AnyAction {
   type: typeof LOGIN_USER;
   payload: {
     email: string;
     pwd: string;
   };
 }
-export type FetchActionsTypes = IFetchErrorAction | IFetchRequestAction | IFetchSuccessAction | ILoginAction;
+export interface ICLearData extends AnyAction {
+  type: typeof CLEAR_DATA;
+  payload: {
+    categories?: [];
+    news?: [];
+  };
+}
+export type FetchActionsTypes =
+  | IFetchErrorAction
+  | IFetchRequestAction
+  | IFetchSuccessAction
+  | ILoginAction
+  | ICLearData;
 
+
+/**
+ * *****************State Types***********************************
+ */
 export interface IFetchState {
   loading: boolean;
-  data: any;
+  newsData: Array<INewsData>;
+  categoriesData: Array<ICategoryData>;
   error: string;
 }

@@ -71,7 +71,7 @@ const NewsContainer: React.FC<INewsProps> = function ({ isLoading, categories, f
   //if user not logged in - return to landing page
 };
 const mapStateToProps = (state: RootState) => ({
-  widgetsData: state.fetchDataState.data,
+  widgetsData: state.fetchDataState.newsData,
   categories: state.userStatus.categories,
   isLoading: state.fetchDataState.loading,
 });

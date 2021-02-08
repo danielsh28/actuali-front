@@ -1,12 +1,20 @@
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import axios from 'axios';
-import { AnyAction } from 'redux';
+import {AnyAction} from 'redux';
 import queryString from 'query-string';
-import { CLEAR_DATA, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, LOGIN_USER, FetchActionsTypes } from '../types';
-import { RootState } from '../configureStore';
-import { ACTUALI_SERVER_BASE_URL, ACTUALI_SERVER_BASE_URL_DEV } from '../../utils/app-constants';
-import { INewsData } from '../../components/UI/molecules/ActualiCards/NewsCard';
-import { ICategoryData } from '../../components/UI/molecules/ActualiCards/CategoryCard';
+import {
+  CLEAR_DATA,
+  dataType,
+  FETCH_DATA_REQUEST,
+  FETCH_DATA_SUCCESS,
+  FetchActionsTypes,
+  IFetchSuccessAction,
+  LOGIN_USER
+} from '../types';
+import {RootState} from '../configureStore';
+import {ACTUALI_SERVER_BASE_URL, ACTUALI_SERVER_BASE_URL_DEV} from '../../utils/app-constants';
+import {INewsData} from '../../components/UI/molecules/ActualiCards/NewsCard';
+import {ICategoryData} from '../../components/UI/molecules/ActualiCards/CategoryCard';
 
 console.log(`server an dev:  ${process.env.REACT_APP_BACK_DEV}`);
 console.log(`browser:  ${process.env.BROWSER}`);
@@ -25,18 +33,18 @@ const fetchDataError = (message: string) => ({
   },
 });
 
-const fetchDataNewsSuccess = (data: INewsData) => ({
+const fetchDataNewsSuccess = (newsData: INewsData[]) :IFetchSuccessAction=> ({
   type: FETCH_DATA_SUCCESS,
+  dataType : dataType.NEWS,
   payload: {
-    loading: false,
-    data,
+    newsData,
   },
 });
-const fetchDataCategoriesSuccess = (data: ICategoryData) => ({
+const fetchDataCategoriesSuccess  = (categoriesData: ICategoryData[]) :IFetchSuccessAction => ({
   type: FETCH_DATA_SUCCESS,
+  dataType : dataType.CATEGORIES,
   payload: {
-    loading: false,
-    data,
+    categoriesData,
   },
 });
 

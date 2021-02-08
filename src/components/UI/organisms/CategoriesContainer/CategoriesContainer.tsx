@@ -43,8 +43,7 @@ const CategoriesContainer: React.FC<ICatProps> = ({
 
 const mapStateToProps = (state: RootState) => ({
   isLogin: state.userLoginStatus.isLogin,
-  widgetsData: state.fetchDataState.data,
-  mapFunction: state.userStatus.mapFunc,
+  widgetsData: state.fetchDataState.categoriesData,
   isLoading: state.fetchDataState.loading,
 });
 
