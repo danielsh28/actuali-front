@@ -46,7 +46,7 @@ const NewsContainer: React.FC<INewsProps> = function ({ isLoading, categories, f
   // call the fetch news action
   useEffect(() => {
     if (widgetsData.length === 0) {
-      fetchNews({ cat: categories, count: INITIAL_NEWS_FETCH });
+      fetchNews({ cat: categories , count: INITIAL_NEWS_FETCH });
     } else {
       if (widgetsData.length === newsCounter - INITIAL_NEWS_FETCH) {
         const params: IParams = {
@@ -59,14 +59,14 @@ const NewsContainer: React.FC<INewsProps> = function ({ isLoading, categories, f
   }, [newsCounter, categories, fetchNews, widgetsData.length]);
 
   return (
-    <React.Fragment>
+    <>
       <div className={`${styles.mainContainer} container`}>
-        {widgetsData.map((news, index?: number) => {
+        { widgetsData.map((news, index?: number) => {
           return <NewsCard key={index} title={news.title} urlToImage={news.urlToImage} url={news.url} />;
         })}
       </div>
       {isLoading && <div className={styles.loader}></div>}
-    </React.Fragment>
+    </>
   );
   //if user not logged in - return to landing page
 };

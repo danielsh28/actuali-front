@@ -6,7 +6,7 @@ import { RootState } from './store/configureStore';
 import styles from './App.module.scss';
 import { IAppProps } from './AppTypes';
 import { Redirect } from 'react-router-dom';
-import NewsDashboard from './components/tamplets/ActualiWebSite/newDashboard';
+import NewsDashboard from './components/tamplets/ActualiWebSite/newsDashboard';
 import CategoryPanel from './components/tamplets/ActualiWebSite/CategoryPanel';
 
 const App: React.FC<IAppProps> = ({ appHeight, cookies }) => {

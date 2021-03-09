@@ -1,0 +1,30 @@
+
+
+.categoryElements{
+  width:10vw;
+  padding-top: 1vh ;
+  height: 5vh;
+  background: #00314c;
+  color: #f3f3f3;
+  text-align: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  font-size: 100%;
+}
+.arrow{
+  width : 0;
+  height : 0;
+  border-bottom: 1rem solid transparent;
+  border-top: 1rem solid transparent;
+}
+
+.arrowLeft{
+  margin-right: 1rem;
+  border-right: 1rem solid #00314c;
+}
+
+.arrowRight{
+  margin-left: 1rem;
+  border-left: 1rem solid #00314c ;
+}

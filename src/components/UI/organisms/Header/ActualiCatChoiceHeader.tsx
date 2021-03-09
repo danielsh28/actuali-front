@@ -22,7 +22,6 @@ const ActualiCatChoiceHeader: React.FC<ISUHeaderProps> = ({ clearData, categorie
   const handleCatSubmit = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     if (categories.length >= MIN_CATEGORIES_NUM) {
-      clearData();
       history.push('/userDashboard');
       changeToExistUser();
     }
